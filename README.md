@@ -1,5 +1,5 @@
 # sourcemanager
-[![CI](https://github.com/Project-MNET/sourcemanager/actions/workflows/main.yml/badge.svg?branch=main)]([https://github.com/Project-MNET/sourcemanager/actions/workflows/main.yml](https://github.com/Project-MNET/sourcemanager/actions))
+[![CI](https://github.com/Project-MNET/sourcemanager/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Project-MNET/sourcemanager/actions)
 
 A program to chart, manage, and view sources/references.
 This project is licensed under the terms of the GNU GPLv3 license.
