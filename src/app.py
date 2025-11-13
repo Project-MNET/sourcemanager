@@ -3,7 +3,9 @@ from flask import abort, redirect, render_template, request, session
 from dotenv import load_dotenv
 import os
 
-
+from flask_sqlalchemy import SQLAlchemy
+from .init_db import db, init
+from . import database
 load_dotenv()
 
 app = Flask(
@@ -11,6 +13,12 @@ app = Flask(
     template_folder="templates",
     static_folder="static"
 )
+#init(app) #tämä yhdistää dbn flask applikaatioon.
+#nyt voi kutsua SQLAlchemyä importtaamalla db init_db.py:stä
+#with app.app_context():
+#    database.luonti()
+#    database.create_Kirja("Testi", "Title", "2025", "Publisher")
+#    database.hae_tieto()
 
 @app.route('/')
 def index():
