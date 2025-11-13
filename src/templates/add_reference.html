@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Uusi viite</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script>
+    function showFields() {
+      const type = document.getElementById('reference_type').value;
+      const allFields = document.querySelectorAll('.field-group');
+      allFields.forEach(f => f.style.display = 'none');
+
+      if(type === 'Book') {
+        document.getElementById('book_fields').style.display = 'block';
+      } else if(type === 'Article') {
+        document.getElementById('article_fields').style.display = 'block';
+      } else if(type === 'Inproceedings') {
+        document.getElementById('inproceedings_fields').style.display = 'block';
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <form action="/new_reference" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.reference_type.label }} {{ form.reference_type() }}
+    {{ form.key.label }} {{ form.key() }}
+    {{ form.author.label }} {{ form.author() }}
+    {{ form.title.label }} {{ form.title() }}
+    {{ form.year.label }} {{ form.year() }}
+    {{ form.publisher.label }} {{ form.publisher() }}
+    {{ form.journal.label }} {{ form.journal() }}
+    {{ form.volume.label }} {{ form.volume() }}
+    {{ form.pages.label }} {{ form.pages() }}
+    {{ form.booktitle.label }} {{ form.booktitle() }}
+    {{ form.submit() }}
+
+    <p>
+      Valitse viitteen tyyppi: <br />
+      {{ form.reference_type(id="reference_type", onchange="showFields()") }}
+    </p>
+
+    <div id="book_fields" class="field-group" style="display:none;">
+      <label>KEY</label>
+      {{ form.key(size=40) }}
+
+      <label>Author</label>
+      {{ form.author(size=50) }}
+
+      <label>Title</label>
+      {{ form.title(size=50) }}
+
+      <label>Year</label>
+      {{ form.year(size=10) }}
+
+      <label>Publisher</label>
+      {{ form.publisher(size=50) }}
+    </div>
+
+    <div id="article_fields" class="field-group" style="display:none;">
+      <label>KEY</label>
+      {{ form.key(size=40) }}
+
+      <label>Author</label>
+      {{ form.author(size=50) }}
+
+      <label>Title</label>
+      {{ form.title(size=50) }}
+
+      <label>Journal</label>
+      {{ form.journal(size=50) }}
+
+      <label>Year</label>
+      {{ form.year(size=10) }}
+
+      <label>Volume</label>
+      {{ form.volume(size=10) }}
+
+      <label>Pages</label>
+      {{ form.pages(size=10) }}
+    </div>
+
+    <div id="inproceedings_fields" class="field-group" style="display:none;">
+      <label>KEY</label>
+      {{ form.key(size=40) }}
+
+      <label>Author</label>
+      {{ form.author(size=50) }}
+
+      <label>Title</label>
+      {{ form.title(size=50) }}
+
+      <label>Year</label>
+      {{ form.year(size=10) }}
+
+      <label>Booktitle</label>
+      {{ form.booktitle(size=50) }}
+    </div>
+
+    <input class="button" type="submit" value="Lisää viite" />
+  </form>
+
+  <a class="button" href="/">Takaisin etusivulle</a>
+</body>
+
+</html>
