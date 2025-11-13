@@ -1,7 +1,7 @@
+import os
 from flask import Flask
 from flask import abort, redirect, render_template, request, session
 from dotenv import load_dotenv
-import os
 from forms import ReferenceForm
 
 
