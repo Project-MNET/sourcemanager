@@ -1,7 +1,8 @@
+import os
 from flask import Flask
 from flask import abort, redirect, render_template, request, session
 from dotenv import load_dotenv
-import os
+from forms import ReferenceForm
 
 from flask_sqlalchemy import SQLAlchemy
 from .init_db import db, init
@@ -30,6 +31,9 @@ def search():
 
 @app.route('/add_reference')
 def add_reference():
+    form = ReferenceForm()
+    if form.validate_on_submit():
+        return redirect('/')
     return render_template("add_reference.html")
 
 @app.route('/reference_list')
@@ -38,3 +42,4 @@ def reference_list():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
