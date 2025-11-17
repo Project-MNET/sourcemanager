@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask import abort, redirect, render_template, request, session
 from dotenv import load_dotenv
-from forms import ReferenceForm
+from .forms import ReferenceForm
 
 from flask_sqlalchemy import SQLAlchemy
 from .init_db import db, init
