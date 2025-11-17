@@ -14,3 +14,40 @@ This project is licensed under the terms of the GNU GPLv3 license.
 - Asiakas hyväksyy User Storyn
 
 ## Installation instructions:
+Includes some example commands that may or may not work, depending on your machine.
+
+Clone the repository. 
+```
+$ git clone https://github.com/Project-MNET/sourcemanager.git
+```
+Navigate to the cloned directory.
+```
+$ cd sourcemanager
+```
+Add the text
+
+[tool.poetry]  
+package-mode = false
+
+to the pyproject.toml file.
+```
+$ nano pyproject.toml
+```
+Install poetry.
+```
+$ poetry install
+```
+Move to the src directory.
+```
+$ cd src
+```
+You should now be able to start the source manager.
+```
+$ poetry run flask run
+```
+Troubleshooting:  
+If you run into issues with importing the forms module, change the 5th line of app.py to
+"from .forms import ReferenceForm" instead of "from forms import ReferenceForm".
+```
+$ nano app.py
+```
