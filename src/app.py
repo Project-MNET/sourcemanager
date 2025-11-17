@@ -1,6 +1,6 @@
-import os
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask_wtf import CSRFProtect
+from flask import redirect, render_template
 from dotenv import load_dotenv
 from .forms import ReferenceForm
 
@@ -20,6 +20,10 @@ app = Flask(
 #    database.luonti()
 #    database.create_Kirja("Testi", "Title", "2025", "Publisher")
 #    database.hae_tieto()
+
+app.config['SECRET_KEY'] = '1234'
+
+csrf = CSRFProtect(app)
 
 @app.route('/')
 def index():
@@ -42,4 +46,4 @@ def reference_list():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
+   

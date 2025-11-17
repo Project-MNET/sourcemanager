@@ -3,6 +3,9 @@ name: CI
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+
 
 jobs:
   build:
@@ -18,5 +21,14 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@master
+      - name: Start chromedriver and Xvfb
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+      - name: Run Robot tests
+        run: bash run_robot_tests.sh
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
