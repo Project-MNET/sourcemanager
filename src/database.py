@@ -25,8 +25,8 @@ def hae_tieto():
 #Alle teen funktioita jotka sitten sijoittavat tietoa pöytiin.
 #Pöydät ovat sittenkin jaoteltu 3 eri pöytään ne löytyvät models.py osiosta.
 
-def create_Kirja(author, title, year, publisher):
-    viite = models.Kirja_viite(author=author, title=title, year=year, publisher=publisher)
+def create_Kirja(key, author, title, year, publisher):
+    viite = models.Kirja_viite(key=key, author=author, title=title, year=year, publisher=publisher)
     db.session.add(viite)
     try:
         db.session.commit()
@@ -35,8 +35,8 @@ def create_Kirja(author, title, year, publisher):
         raise
     db.session.refresh(viite)
 
-def create_artikkeli(author, title, year, journal, volume, pages):
-    viite = models.Artikkeli_viite(author=author, title=title, year=year, journal=journal, volume=volume, pages=pages)
+def create_artikkeli(key, author, title, year, journal, volume, pages):
+    viite = models.Artikkeli_viite(key=key, author=author, title=title, year=year, journal=journal, volume=volume, pages=pages)
     db.session.add(viite)
     try:
         db.session.commit()
@@ -45,8 +45,8 @@ def create_artikkeli(author, title, year, journal, volume, pages):
         raise
     db.session.refresh(viite)
 
-def create_Konferenssijulkaisu(author, title, year, booktitle):
-    viite = models.Konferenssijulkaisu_viite(author=author, title=title, year=year, booktitle=booktitle)
+def create_Konferenssijulkaisu(key, author, title, year, booktitle):
+    viite = models.Konferenssijulkaisu_viite(key=key,author=author, title=title, year=year, booktitle=booktitle)
     db.session.add(viite)
     try:
         db.session.commit()

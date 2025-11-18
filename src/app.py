@@ -18,7 +18,7 @@ app = Flask(
 #nyt voi kutsua SQLAlchemyä importtaamalla db init_db.py:stä
 #with app.app_context():
 #    database.luonti()
-#    database.create_Kirja("Testi", "Title", "2025", "Publisher")
+#    database.create_Kirja("Avain", "Testi", "Title", "2025", "Publisher")
 #    database.hae_tieto()
 
 app.config['SECRET_KEY'] = '1234'
