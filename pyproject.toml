@@ -39,3 +39,6 @@ dev = [
 
 [tool.poetry.scripts]
 flask-app = "src.app:app"
+
+[tool.poetry]
+package-mode = false
