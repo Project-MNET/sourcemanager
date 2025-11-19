@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.path.abspath("."))
+
 from flask import Flask, redirect, render_template
 from flask_wtf import CSRFProtect
 from dotenv import load_dotenv
