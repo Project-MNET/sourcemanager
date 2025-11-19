@@ -18,84 +18,45 @@
         document.getElementById('inproceedings_fields').style.display = 'block';
       }
     }
+    window.onload = function() {
+    showFields();
+    };
   </script>
 </head>
 
 <body>
-  <form action="/new_reference" method="post">
+  <form action="/add_reference" method="post">
     {{ form.hidden_tag() }}
-    {{ form.reference_type.label }} {{ form.reference_type() }}
-    {{ form.key.label }} {{ form.key() }}
-    {{ form.author.label }} {{ form.author() }}
-    {{ form.title.label }} {{ form.title() }}
-    {{ form.year.label }} {{ form.year() }}
-    {{ form.publisher.label }} {{ form.publisher() }}
-    {{ form.journal.label }} {{ form.journal() }}
-    {{ form.volume.label }} {{ form.volume() }}
-    {{ form.pages.label }} {{ form.pages() }}
-    {{ form.booktitle.label }} {{ form.booktitle() }}
-    {{ form.submit() }}
-
+   
     <p>
       Valitse viitteen tyyppi: <br />
       {{ form.reference_type(id="reference_type", onchange="showFields()") }}
     </p>
 
     <div id="book_fields" class="field-group" style="display:none;">
-      <label>KEY</label>
-      {{ form.key(size=40) }}
-
-      <label>Author</label>
-      {{ form.author(size=50) }}
-
-      <label>Title</label>
-      {{ form.title(size=50) }}
-
-      <label>Year</label>
-      {{ form.year(size=10) }}
-
-      <label>Publisher</label>
-      {{ form.publisher(size=50) }}
+      <div class="field-row"><label for="key">KEY:</label>{{ form.key() }}</div>
+      <div class="field-row"><label for="author">Author:</label>{{ form.author() }}</div>
+      <div class="field-row"><label for="title">Title:</label>{{ form.title() }}</div>
+      <div class="field-row"><label for="year">Year:</label>{{ form.year() }}</div>
+      <div class="field-row"><label for="publisher">Publisher:</label>{{ form.publisher() }}</div>
     </div>
 
     <div id="article_fields" class="field-group" style="display:none;">
-      <label>KEY</label>
-      {{ form.key(size=40) }}
-
-      <label>Author</label>
-      {{ form.author(size=50) }}
-
-      <label>Title</label>
-      {{ form.title(size=50) }}
-
-      <label>Journal</label>
-      {{ form.journal(size=50) }}
-
-      <label>Year</label>
-      {{ form.year(size=10) }}
-
-      <label>Volume</label>
-      {{ form.volume(size=10) }}
-
-      <label>Pages</label>
-      {{ form.pages(size=10) }}
+      <div class="field-row"><label for="key">KEY:</label>{{ form.key() }}</div>
+      <div class="field-row"><label for="author">Author:</label>{{ form.author() }}</div>
+      <div class="field-row"><label for="title">Title:</label>{{ form.title() }}</div>
+      <div class="field-row"><label for="journal">Journal:</label>{{ form.journal() }}</div>
+      <div class="field-row"><label for="year">Year:</label>{{ form.year() }}</div>
+      <div class="field-row"><label for="volume">Volume:</label>{{ form.volume() }}</div>
+      <div class="field-row"><label for="pages">Pages:</label>{{ form.pages() }}</div>
     </div>
 
     <div id="inproceedings_fields" class="field-group" style="display:none;">
-      <label>KEY</label>
-      {{ form.key(size=40) }}
-
-      <label>Author</label>
-      {{ form.author(size=50) }}
-
-      <label>Title</label>
-      {{ form.title(size=50) }}
-
-      <label>Year</label>
-      {{ form.year(size=10) }}
-
-      <label>Booktitle</label>
-      {{ form.booktitle(size=50) }}
+      <div class="field-row"><label for="key">KEY:</label>{{ form.key() }}</div>
+      <div class="field-row"><label for="author">Author:</label>{{ form.author() }}</div>
+      <div class="field-row"><label for="title">Title:</label>{{ form.title() }}</div>
+      <div class="field-row"><label for="year">Year:</label>{{ form.year() }}</div>
+      <div class="field-row"><label for="booktitle">Booktitle:</label>{{ form.booktitle() }}</div>
     </div>
 
     <input class="button" type="submit" value="Lisää viite" />

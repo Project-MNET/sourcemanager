@@ -25,3 +25,31 @@
 h1 {
     text-align: center;
 }
+
+.field-group {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;               
+    margin-bottom: 20px;     
+  }
+  
+  
+  .field-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  
+  .field-row label {
+    width: 80px;   
+    margin-right: 10px;
+    text-align: left;
+  }
+  
+  
+  .field-row input,
+  .field-row select,
+  .field-row textarea {
+    flex: 1;  
+  }

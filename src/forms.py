@@ -17,4 +17,3 @@ class ReferenceForm(FlaskForm):
     pages = StringField('Pages')                # Article only
     booktitle = StringField('Booktitle')        # Inproceedings only
     submit = SubmitField('Lisää viite')
-    

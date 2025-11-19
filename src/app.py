@@ -1,12 +1,11 @@
-from flask import Flask
+from flask import Flask, redirect, render_template
 from flask_wtf import CSRFProtect
-from flask import redirect, render_template
 from dotenv import load_dotenv
-from forms import ReferenceForm
-
 from flask_sqlalchemy import SQLAlchemy
-from .init_db import db, init
-from . import database
+from src.forms import ReferenceForm
+
+from src.init_db import db, init
+from src import database
 load_dotenv()
 
 app = Flask(
@@ -33,12 +32,12 @@ def index():
 def search():
     return render_template("search.html")
 
-@app.route('/add_reference')
+@app.route('/add_reference', methods=['GET', 'POST'])
 def add_reference():
     form = ReferenceForm()
     if form.validate_on_submit():
         return redirect('/')
-    return render_template("add_reference.html")
+    return render_template("add_reference.html", form=form)
 
 @app.route('/reference_list')
 def reference_list():
@@ -46,4 +45,3 @@ def reference_list():
 
 if __name__ == '__main__':
     app.run(debug=True)
-   
