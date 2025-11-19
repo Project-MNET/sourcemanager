@@ -21,6 +21,7 @@ name = "sourcemanager"
 packages = [
     { include = "src" }
 ]
+package-mode = false
 
 
 [build-system]
@@ -40,5 +41,3 @@ dev = [
 [tool.poetry.scripts]
 flask-app = "src.app:app"
 
-[tool.poetry]
-package-mode = false
