@@ -16,8 +16,10 @@ dependencies = [
     "robotframework (>=7.3.2,<8.0.0)",
     "robotframework-seleniumlibrary (>=6.8.0,<7.0.0)"
 ]
+[tool.poetry]
+name = "sourcemanager"
 packages = [
-    { include = "sourcemanager" }
+    { include = "src" }
 ]
 
 
@@ -37,3 +39,6 @@ dev = [
 
 [tool.poetry.scripts]
 flask-app = "src.app:app"
+
+[tool.poetry]
+package-mode = false
