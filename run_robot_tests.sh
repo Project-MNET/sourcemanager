@@ -1,10 +1,14 @@
 echo "Running tests"
 
-poetry run python3 src/index.py &
+export FLASK_APP=src.app
+export FLASK_RUN_PORT=5001
+poetry run flask run &
+
+FLASK_PID=$!
 
 echo "started Flask server"
 
-while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5001)" != "200" ]];
+while [[ "$(curl -s -o /dev/null -w '%{http_code}' localhost:5001)" != "200" ]];
   do sleep 1;
 done
 
