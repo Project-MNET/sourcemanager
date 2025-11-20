@@ -5,10 +5,9 @@ from flask import Flask, redirect, render_template
 from flask_wtf import CSRFProtect
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
-from src.forms import ReferenceForm
-from src.app import app
+from forms import ReferenceForm
 
-from src.init_db import db, init
+from init_db import db, init
 from src import database
 load_dotenv()
 
