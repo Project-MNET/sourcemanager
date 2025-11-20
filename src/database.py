@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-from . import models
+from src import models
 import os
 
 from .init_db import db

@@ -6,6 +6,7 @@ from flask_wtf import CSRFProtect
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from forms import ReferenceForm
+from database import create_artikkeli, create_Kirja, create_Konferenssijulkaisu
 
 from init_db import db, init
 from src import database
@@ -39,8 +40,31 @@ def search():
 def add_reference():
     form = ReferenceForm()
     if form.validate_on_submit():
+        #Poimitaan tiedot lomakkeesta
+        ref_type = form.reference_type.data
+        key = form.key.data
+        author = form.author.data
+        title = form.title.data
+        year = form.year.data
+
+        # Tarkistetaan viitteen tyyppi, poimitaan puuttuvat tiedot
+        # ja kutsutaan vastaavaa funktiota tallentamaan tietokantaan
+        if ref_type == "Book":
+            publisher = form.publisher.data
+            create_Kirja(key, author, title, year, publisher)
+        elif ref_type == "Article":
+            journal = form.journal.data
+            volume = form.volume.data
+            pages = form.pages.data
+            create_artikkeli(key, author, title, year, journal, volume, pages)
+        elif ref_type == "Inproceedings":
+            booktitle = form.booktitle.data
+            create_Konferenssijulkaisu(key, author, title, year, booktitle)
+
         return redirect('/')
+
     return render_template("add_reference.html", form=form)
+
 
 @app.route('/reference_list')
 def reference_list():
