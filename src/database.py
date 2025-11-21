@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from src import models
 import os
 
-from .init_db import db
+from init_db import db
 #luodaan pöydät tietokantaan.
 def luonti():
     db.create_all()

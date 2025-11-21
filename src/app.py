@@ -9,7 +9,7 @@ from forms import ReferenceForm
 from database import create_artikkeli, create_Kirja, create_Konferenssijulkaisu
 
 from init_db import db, init
-from src import database
+from src import database, models
 load_dotenv()
 
 app = Flask(
@@ -17,7 +17,7 @@ app = Flask(
     template_folder="templates",
     static_folder="static"
 )
-#init(app) #tämä yhdistää dbn flask applikaatioon.
+init(app) #tämä yhdistää dbn flask applikaatioon.
 #nyt voi kutsua SQLAlchemyä importtaamalla db init_db.py:stä
 #with app.app_context():
 #    database.luonti()
