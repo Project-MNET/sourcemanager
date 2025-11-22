@@ -1,7 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-from src import models
+from models import (
+    Kirja_viite,
+    Artikkeli_viite,
+    Konferenssijulkaisu_viite
+)
+
 import os
 
 from init_db import db
@@ -20,13 +25,13 @@ def list_tables(schema: str = "public") -> list[str]:
 #Tarkastetaan onko lisätty pöytään:
 
 def hae_tieto():
-    nimi = db.session.query(models.Kirja_viite).all()
+    nimi = db.session.query(Kirja_viite).all()
     print(nimi)
 #Alle teen funktioita jotka sitten sijoittavat tietoa pöytiin.
 #Pöydät ovat sittenkin jaoteltu 3 eri pöytään ne löytyvät models.py osiosta.
 
 def create_Kirja(key, author, title, year, publisher):
-    viite = models.Kirja_viite(key=key, author=author, title=title, year=year, publisher=publisher)
+    viite = Kirja_viite(key=key, author=author, title=title, year=year, publisher=publisher)
     db.session.add(viite)
     try:
         db.session.commit()
@@ -36,7 +41,7 @@ def create_Kirja(key, author, title, year, publisher):
     db.session.refresh(viite)
 
 def create_artikkeli(key, author, title, year, journal, volume, pages):
-    viite = models.Artikkeli_viite(key=key, author=author, title=title, year=year, journal=journal, volume=volume, pages=pages)
+    viite = Artikkeli_viite(key=key, author=author, title=title, year=year, journal=journal, volume=volume, pages=pages)
     db.session.add(viite)
     try:
         db.session.commit()
@@ -46,7 +51,7 @@ def create_artikkeli(key, author, title, year, journal, volume, pages):
     db.session.refresh(viite)
 
 def create_Konferenssijulkaisu(key, author, title, year, booktitle):
-    viite = models.Konferenssijulkaisu_viite(key=key,author=author, title=title, year=year, booktitle=booktitle)
+    viite = Konferenssijulkaisu_viite(key=key,author=author, title=title, year=year, booktitle=booktitle)
     db.session.add(viite)
     try:
         db.session.commit()

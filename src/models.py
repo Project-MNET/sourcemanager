@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from .init_db import db
+from init_db import db
 
 class Kirja_viite(db.Model):
     __tablename__ = "Kirja_viite"
