@@ -76,3 +76,23 @@ def create_Konferenssijulkaisu(key, author, title, year, booktitle):
         print(Konferenssijulkaisu_viite.query.filter_by(key=key).first())
 
 
+def get(key=None, order = "id", descending = True):
+    #Tehdään apufunktio jolla voi järjestellä ja muokata hakua helpommin.
+    def query_avustaja(model):
+        q = model.query
+        if key:
+            q = q.filter_by(key=key)
+        #Varmistetaan onko arvoa millä pitäisi järjestää haku
+        v_order = getattr(model, order, None)
+        if v_order:
+            if descending:
+                q = q.order_by(v_order.desc())
+            else:
+                q = q.order_by(v_order.asc())
+        return q.all()
+    #Informaatio tulee takaisin sanakirjana.
+    return {
+        "kirja": query_avustaja(Kirja_viite), 
+        "artikkeli": query_avustaja(Artikkeli_viite), 
+        "konferenssi": query_avustaja(Konferenssijulkaisu_viite)
+        }
