@@ -84,11 +84,14 @@ def get(key=None, order = "id", descending = True):
             q = q.filter_by(key=key)
         #Varmistetaan onko arvoa millä pitäisi järjestää haku
         v_order = getattr(model, order, None)
-        if v_order:
+        if v_order is not None:
             if descending:
                 q = q.order_by(v_order.desc())
             else:
                 q = q.order_by(v_order.asc())
+        else:
+            q = q.order_by(model.id.desc())
+            print("order attribuuttia ei löytynyt")
         return q.all()
     #Informaatio tulee takaisin sanakirjana.
     return {
