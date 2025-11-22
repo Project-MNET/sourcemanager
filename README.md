@@ -46,7 +46,10 @@ nano app.py
 First download docker desktop software.
 Docker Desktop has to be on when the database is being used.
 
-Create .env file in the project directory (Above src) with the command touch .env
+Create .env file in the project directory (Above src) with the command 
+```
+touch .env
+```
 ADD The information that is in {} and remove the brackets after. 
 POSTGRES_USER={NAME}
 POSTGRES_PASSWORD={PASSWORD}
@@ -54,8 +57,14 @@ POSTGRES_DB=flask_db
 DATABASE_URL=postgresql+psycopg2://{NAME}:{PASSWORD}@localhost:5432/flask_db
 
 Make sure that the Name and PASSWORD sections match
-run docker with the command docker compose up -d(This runs docker in the background and then you can start flask with poetry run flask run)
-
+run docker with the command 
+```
+docker compose up -d
+```
+This runs docker in the background and then you can start flask from the src directory with: 
+```
+poetry run flask run
+```
 The software should automatically create a database in your docker and the tables and create a test column in there.
 Then it should print the test column in the console.
 
