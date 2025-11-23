@@ -48,15 +48,18 @@ Docker Desktop has to be on when the database is being used.
 
 Create .env file in the project directory (Above src) with the command 
 ```
-touch .env
+nano .env
 ```
-ADD The information that is in {} and remove the brackets after. 
-POSTGRES_USER={NAME}
+Paste the following into the .env file
+ADD The information that is in {} and remove the brackets after. Make sure that the Name and PASSWORD sections match.
+```
+POSTGRES_USER={USERNAME}
 POSTGRES_PASSWORD={PASSWORD}
 POSTGRES_DB=flask_db
-DATABASE_URL=postgresql+psycopg2://{NAME}:{PASSWORD}@localhost:5432/flask_db
+SECRET_KEY=1234
 
-Make sure that the Name and PASSWORD sections match
+DATABASE_URL=postgresql+psycopg2://{USERNAME}:{PASSWORD}@localhost:5432/flask_db
+```
 run docker with the command 
 ```
 docker compose up -d
