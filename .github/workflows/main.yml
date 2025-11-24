@@ -49,5 +49,5 @@ jobs:
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
       - name: Run Robot tests
         run: bash run_robot_tests.sh
-      - name: Run tests
-        run: poetry run coverage run --branch -m pytest
+      - name: Run pytest with coverage
+        run: poetry run coverage run --branch -m pytest src/tests
