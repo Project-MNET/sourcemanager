@@ -68,7 +68,9 @@ def add_reference():
 
 @app.route('/reference_list')
 def reference_list():
-    return render_template("reference_list.html")
+    dict = database.get()
+    reflist = [item for sublist in dict.values() for item in sublist]
+    return render_template("reference_list.html", references = reflist)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001)

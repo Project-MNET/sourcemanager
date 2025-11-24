@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Viitteet</title>
+</head>
+
+<body>
+    <h1>Kaikki viitteet</h1>
+        {% for ref in references %}
+        <li>
+            {{ref.author}}: {{ref.title}}, {{ref.year}}
+        </li>
+        {% endfor %}
+</body>
+</html>
