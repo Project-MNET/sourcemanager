@@ -33,6 +33,8 @@ jobs:
           chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
       - name: Wait for Postgres
+        env:
+          PGPASSWORD: postgres
         run: |
           until pg_isready -h postgres -p 5432 -U postgres; do
             echo "Waiting for Postgres..."
