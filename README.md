@@ -43,15 +43,14 @@ If you run into issues with importing the forms module, change the 5th line of a
 nano app.py
 ```
 ## INSTALLATION INSTRUCTIONS FOR DOCKER POSTGRESQL DATABASE.
-First download docker desktop software.
-Docker Desktop has to be on when the database is being used.
+First, download Docker Desktop.  
+Docker Desktop has to be running when the database is being used.
 
-Create .env file in the project directory (Above src) with the command 
+Create the .env file in the project directory (above src).
 ```
 nano .env
 ```
-Paste the following into the .env file
-ADD The information that is in {} and remove the brackets after. Make sure that the Name and PASSWORD sections match.
+Paste the following into the .env file:
 ```
 POSTGRES_USER={USERNAME}
 POSTGRES_PASSWORD={PASSWORD}
@@ -60,18 +59,20 @@ SECRET_KEY=1234
 
 DATABASE_URL=postgresql+psycopg2://{USERNAME}:{PASSWORD}@localhost:5432/flask_db
 ```
-run docker with the command 
+Choose a username and a password and insert them into the .env file at POSTGRES_USER={your chosen username} and POSTGRES_PASSWORD={your chosen password}, respectively. Make sure to also edit the database URL to include your chosen username and password.
+
+Run Docker.
 ```
 docker compose up -d
 ```
-This runs docker in the background and then you can start flask from the src directory with: 
+This runs Docker in the background. Then, you can start flask from the src directory. 
 ```
 poetry run flask run
 ```
-The software should automatically create a database in your docker and the tables and create a test column in there.
-Then it should print the test column in the console.
+The software should automatically create a database in your Docker and the tables and create a test column in there.
+Then, it should print the test column in the console.
 
-Database funktions need to be used with app context in this style:
-with app.app_context():
+Database functions need to be used with app context in this style:  
+with app.app_context():  
     database.esim()
     
