@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sourcemanager
-      SQLALCHEMY_DATABASE_URI: postgresql://postgres:postgres@localhost:5432/sourcemanager
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/sourcemanager
+      SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://postgres:postgres@postgres:5432/sourcemanager
 
     steps:
       - uses: actions/checkout@v5
@@ -32,14 +32,12 @@ jobs:
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-      - name: Wait for PostgreSQL
+      - name: Wait for Postgres
         run: |
-          echo "Waiting for PostgreSQL..."
-          for i in {1..10}; do
-          pg_isready -h localhost -p 5432 && break
-          sleep 2
+          until pg_isready -h postgres -p 5432 -U postgres; do
+            echo "Waiting for Postgres..."
+            sleep 2
           done
-  
       - name: Run Robot tests
         run: bash run_robot_tests.sh
       - name: Run tests
