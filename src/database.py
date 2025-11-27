@@ -1,15 +1,12 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-from models import (
+from .models import (
     Kirja_viite,
     Artikkeli_viite,
     Konferenssijulkaisu_viite
 )
 
-import os
-
-from init_db import db
+from .init_db import db
 #luodaan pöydät tietokantaan.
 def luonti():
     db.create_all()
@@ -30,9 +27,9 @@ def hae_tieto():
 #Alle teen funktioita jotka sitten sijoittavat tietoa pöytiin.
 #Pöydät ovat sittenkin jaoteltu 3 eri pöytään ne löytyvät models.py osiosta.
 
-def create_Kirja(key, author, title, year, publisher):
+def create_kirja(key, author, title, year, publisher):
     tarkistus = Kirja_viite.query.filter_by(key=key).first()
-    if tarkistus : 
+    if tarkistus :
         print("Key osio ei ole uniikki")
     else:
         viite = Kirja_viite(key=key, author=author, title=title, year=year, publisher=publisher)
@@ -47,10 +44,11 @@ def create_Kirja(key, author, title, year, publisher):
 
 def create_artikkeli(key, author, title, year, journal, volume, pages):
     tarkistus = Artikkeli_viite.query.filter_by(key=key).first()
-    if tarkistus : 
+    if tarkistus :
         print("Key osio ei ole uniikki")
     else:
-        viite = Artikkeli_viite(key=key, author=author, title=title, year=year, journal=journal, volume=volume, pages=pages)
+        viite = Artikkeli_viite(key=key, author=author, title=title,
+        year=year, journal=journal, volume=volume, pages=pages)
         db.session.add(viite)
         try:
             db.session.commit()
@@ -60,12 +58,13 @@ def create_artikkeli(key, author, title, year, journal, volume, pages):
         db.session.refresh(viite)
         print(Artikkeli_viite.query.filter_by(key=key).first())
 
-def create_Konferenssijulkaisu(key, author, title, year, booktitle):
+def create_konferenssijulkaisu(key, author, title, year, booktitle):
     tarkistus = Konferenssijulkaisu_viite.query.filter_by(key=key).first()
-    if tarkistus : 
+    if tarkistus :
         print("Key osio ei ole uniikki")
     else:
-        viite = Konferenssijulkaisu_viite(key=key,author=author, title=title, year=year, booktitle=booktitle)
+        viite = Konferenssijulkaisu_viite(key=key,author=author, title=title, year=year,
+        booktitle=booktitle)
         db.session.add(viite)
         try:
             db.session.commit()
