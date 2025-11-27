@@ -90,6 +90,7 @@ def get(key=None, order = "id", descending = True):
             else:
                 q = q.order_by(v_order.asc())
         else:
+            #Jos order attribuuttia ei löydy defaultataan id attribuuttiin joka on kaikissa. printataan virhe.
             q = q.order_by(model.id.desc())
             print("order attribuuttia ei löytynyt")
         return q.all()
