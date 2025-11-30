@@ -1,6 +1,6 @@
 echo "Running tests"
 
-poetry run python3 src/app.py &
+poetry run python -m src.app &
 FLASK_PID=$!
 
 echo "started Flask server"
