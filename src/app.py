@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request
 from flask_wtf import CSRFProtect
 
 from .init_db import init, db
@@ -40,20 +40,28 @@ def search():
     #Haku ja results ovat osana html templatea
     haku = False
     results = False
-    query = request.args.get("query")
+
+    kirja = []
+    artikkeli = []
+    konferenssi = []
+
+    haku_lahetetty = "query" in request.args or "types" in request.args
+    if haku_lahetetty:
+        haku = True
+        query = request.args.get("query", "")
+        types=request.args.getlist("types")
+        if not types:
+            types = ["kaikki"]
 
     #Siirretään kaikki listat dictionarystä omiin listoihin:
-    kaikki_dict = database.get(key = query)
-    kirja = kaikki_dict["kirja"]
-    artikkeli = kaikki_dict["artikkeli"]
-    konferenssi = kaikki_dict["konferenssi"]
-    #Tarkistetaan tapahtuiko query oikeasti
-    if query:
-        haku = True
-        #Tarkistetaan oliko queryssä vain tyhjiä listoja.
-        if any(list for list in kaikki_dict.values()):
+        kaikki_dict = database.get(key = query)
+        kirja = kaikki_dict["kirja"] if ("kirja" in types or "kaikki" in types) else []
+        artikkeli = kaikki_dict["artikkeli"] if ("artikkeli" in types or "kaikki" in types) else []
+        konferenssi = kaikki_dict["konferenssi"] if ("konferenssi" in types or "kaikki" in types) else []
+
+        if kirja or artikkeli or konferenssi:
             results = True
-    return render_template("search.html", results = results, query = haku,
+    return render_template("search.html", results = results, query = haku, types = types if haku_lahetetty else [],
                     kirja = kirja, artikkeli=artikkeli, konferenssi=konferenssi)
 
 @app.route('/add_reference', methods=['GET', 'POST'])

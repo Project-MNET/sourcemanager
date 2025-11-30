@@ -25,8 +25,15 @@
 <body>
     <h2>Hae viitearkistosta</h2>
     <form action="/search" method="get">
+        <p>Valitse halutut viitetyypit:</p>
+
+        <label><input type="checkbox" name="types" value="kirja"> Kirjaviitteet</label><br>
+        <label><input type="checkbox" name="types" value="artikkeli"> Artikkeliviitteet</label><br>
+        <label><input type="checkbox" name="types" value="konferenssi"> Konferenssiviitteet</label><br>
+        <label><input type="checkbox" name="types" value="kaikki"> Kaikki</label>
+
         <p>
-            Hakusana: <input type="text" name="query" maxlength="30" required>
+            Hakusana: <input type="text" name="query" maxlength="30">
         </p>
         <input class="button" type="submit" value="Lähetä">
     </form>
@@ -37,25 +44,32 @@
         <h2>Haun tulos</h2>
         {% if results %}
             <ul>
-                <strong>Kirja viitteet</strong><br>
-                {% for viite in kirja %}
-                <li>
-                    Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}
-                </li>
-                {% endfor %}
-                <br><strong>artikkeli viitteet</strong>
-                {% for viite in artikkeli %}
-                <li>
-                    Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}} Journal: {{viite.journal}} Volume: {{viite.volume}} Pages: {{viite.pages}}
-                </li>
-                {% endfor %}
-                <br><strong>Konferenssi viitteet</strong>
-                {% for viite in konferenssi %}
-                <li>
-                    Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}
-                </li>
-                {% endfor %}
+                {% if "kaikki" in types or "kirja" in types %}
+                    <strong>Kirjaviitteet</strong><br>
+                    {% for viite in kirja %}
+                    <li>
+                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}
+                    </li>
+                    {% endfor %}
+                {% endif %}
 
+                {% if "kaikki" in types or "artikkeli" in types %}
+                    <br><strong>Artikkeliviitteet</strong>
+                    {% for viite in artikkeli %}
+                    <li>
+                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}} Journal: {{viite.journal}} Volume: {{viite.volume}} Pages: {{viite.pages}}
+                    </li>
+                    {% endfor %}
+                {% endif %}
+
+                {% if "kaikki" in types or "konferenssi" in types %}
+                    <br><strong>Konferenssiviitteet</strong>
+                    {% for viite in konferenssi %}
+                    <li>
+                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}
+                    </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         {% else %}
             <p>Ei viitteitä tällä haulla.</p>
