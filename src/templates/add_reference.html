@@ -59,6 +59,19 @@
     <input class="button" type="submit" value="Lisää viite" />
   </form>
   <br>
+  {% if error_list and error_list|length > 0 %}
+    <div id="form-error-area" class="form-error-area" role="alert" aria-live="polite">
+      <strong>Lomakkeessa on virheitä:</strong>
+      <ul>
+        {% for err in error_list %}
+          <li>{{ err }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <br>
   <a class="button" href="/">Takaisin etusivulle</a>
+
 </body>
 </html>
