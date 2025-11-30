@@ -40,7 +40,7 @@ def search():
     #Haku ja results ovat osana html templatea
     haku = False
     results = False
-
+    attribuutti = "key"
     kirja = []
     artikkeli = []
     konferenssi = []
@@ -50,11 +50,12 @@ def search():
         haku = True
         query = request.args.get("query", "")
         types=request.args.getlist("types")
+        attribuutti = request.args.get("attribuutti", "key")
         if not types:
             types = ["kaikki"]
 
     #Siirretään kaikki listat dictionarystä omiin listoihin:
-        kaikki_dict = database.get(key = query)
+        kaikki_dict = database.get(key = query, attribute = attribuutti)
         kirja = kaikki_dict["kirja"] if ("kirja" in types or "kaikki" in types) else []
         artikkeli = kaikki_dict["artikkeli"] if ("artikkeli" in types or "kaikki" in types) else []
         konferenssi = kaikki_dict["konferenssi"] if ("konferenssi" in types or "kaikki" in types) else []
