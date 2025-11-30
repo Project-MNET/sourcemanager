@@ -1,5 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
 import os
+from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 def init(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
@@ -7,4 +7,3 @@ def init(app):
 
     app.config.setdefault("SQLALCHEMY_ENGINE_OPTIONS", {"pool_pre_ping": True})
     db.init_app(app)
-
