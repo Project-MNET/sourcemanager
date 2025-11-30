@@ -37,7 +37,24 @@ def index():
 
 @app.route('/search')
 def search():
-    return render_template("search.html")
+    #Haku ja results ovat osana html templatea
+    haku = False
+    results = False
+    query = request.args.get("query")
+
+    #Siirretään kaikki listat dictionarystä omiin listoihin:
+    kaikki_dict = database.get(key = query)
+    kirja = kaikki_dict["kirja"]
+    artikkeli = kaikki_dict["artikkeli"]
+    konferenssi = kaikki_dict["konferenssi"]
+    #Tarkistetaan tapahtuiko query oikeasti
+    if query:
+        haku = True
+        #Tarkistetaan oliko queryssä vain tyhjiä listoja.
+        if any(list for list in kaikki_dict.values()):
+            results = True
+    return render_template("search.html", results = results, query = haku,
+                    kirja = kirja, artikkeli=artikkeli, konferenssi=konferenssi)
 
 @app.route('/add_reference', methods=['GET', 'POST'])
 def add_reference():
