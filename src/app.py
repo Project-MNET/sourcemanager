@@ -91,7 +91,7 @@ def add_reference():
             database.create_konferenssijulkaisu(key, author, title, year, booktitle)
 
         return redirect('/')
-    
+
     error_list = []
     if form.errors:
         # Muotoillaan kenttäkohtaiset viestit listaksi
