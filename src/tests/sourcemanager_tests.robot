@@ -33,7 +33,7 @@ Search Link Should Work
 Add Book Reference
     Open And Configure Browser
     [Documentation]    Testaa kirja-viitteen lisääminen
-    Go To      ${BASE_URL}/add_reference    chrome     
+    Go To      ${BASE_URL}/add_reference      
     Wait Until Page Contains Element    id=reference_type
     Select From List By Value           id=reference_type    Book
     Input Text       id=key        TEST_BOOK_2
@@ -48,7 +48,7 @@ Add Book Reference
 Check Book Reference In List
     Open And Configure Browser
     [Documentation]    Tarkistaa, että lisätty kirja löytyy listasta
-    Go To      ${BASE_URL}/reference_list    chrome     
+    Go To      ${BASE_URL}/reference_list    
     Wait Until Page Contains           Test Title
     Page Should Contain                Test Author
     Page Should Contain                Test Title
