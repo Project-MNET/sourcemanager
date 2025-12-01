@@ -20,7 +20,6 @@ Open And Configure Browser
     IF  $HEADLESS == 'true'
         Set Selenium Speed  0.05 seconds
         Call Method  ${options}  add_argument  --headless
-        Call Method  ${options}  add_argument  --headless
         Call Method  ${options}  add_argument  --no-sandbox
         Call Method  ${options}  add_argument  --disable-dev-shm-usage
         Call Method  ${options}  add_argument  --disable-gpu
