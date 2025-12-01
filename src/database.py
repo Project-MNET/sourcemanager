@@ -108,11 +108,9 @@ def get(key=None, order = "id", descending = True, attribute = "key"):
 
 def unique_key_check(key):
     #Tarkistetaan onko key uniikki kaikissa pöydissä.
-    kirja_tarkistus = Kirja_viite.query.filter_by(key=key).first()
-    artikkeli_tarkistus = Artikkeli_viite.query.filter_by(key=key).first()
-    konferenssi_tarkistus = Konferenssijulkaisu_viite.query.filter_by(key=key).first()
+    kirja_tarkistus = KirjaViite.query.filter_by(key=key).first()
+    artikkeli_tarkistus = ArtikkeliViite.query.filter_by(key=key).first()
+    konferenssi_tarkistus = KonferenssijulkaisuViite.query.filter_by(key=key).first()
     if kirja_tarkistus or artikkeli_tarkistus or konferenssi_tarkistus:
         return False
     return True
-
-
