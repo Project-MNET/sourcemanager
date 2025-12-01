@@ -58,12 +58,14 @@ def search():
         kaikki_dict = database.get(key = query, attribute = attribuutti)
         kirja = kaikki_dict["kirja"] if ("kirja" in types or "kaikki" in types) else []
         artikkeli = kaikki_dict["artikkeli"] if ("artikkeli" in types or "kaikki" in types) else []
-        konferenssi = kaikki_dict["konferenssi"] if ("konferenssi" in types or "kaikki" in types) else []
+        konferenssi = kaikki_dict["konferenssi"] \
+            if ("konferenssi" in types or "kaikki" in types) else []
 
         if kirja or artikkeli or konferenssi:
             results = True
-    return render_template("search.html", results = results, query = haku, types = types if haku_lahetetty else [],
-                    kirja = kirja, artikkeli=artikkeli, konferenssi=konferenssi)
+    return render_template("search.html", results = results, query = haku,
+    types = types if haku_lahetetty else [], kirja = kirja, artikkeli=artikkeli,
+    konferenssi=konferenssi)
 
 @app.route('/add_reference', methods=['GET', 'POST'])
 def add_reference():
@@ -92,8 +94,14 @@ def add_reference():
 
         return redirect('/')
 
-    return render_template("add_reference.html",
-            form=form)
+    error_list = []
+    if form.errors:
+        # Muotoillaan kenttäkohtaiset viestit listaksi
+        for field_name, messages in form.errors.items():
+            for msg in messages:
+                error_list.append(f"{field_name}: {msg}")
+
+    return render_template("add_reference.html", form=form, error_list=error_list)
 
 
 @app.route('/reference_list')

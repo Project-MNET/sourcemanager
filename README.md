@@ -36,17 +36,10 @@ You should now be able to start the source manager.
 ```
 poetry run flask run
 ```
-Troubleshooting:  
-If you run into issues with importing the forms module, change the 5th line of app.py to
-"from .forms import ReferenceForm" instead of "from forms import ReferenceForm".
-```
-nano app.py
-```
-## INSTALLATION INSTRUCTIONS FOR DOCKER POSTGRESQL DATABASE.
-First, download Docker Desktop.  
-Docker Desktop has to be running when the database is being used.
+##  Docker POSTGRESQL DATABASE Installation Instructions.
+Download Docker Desktop, the program has to be running when the database is being used.
 
-Create the .env file in the project directory (above src).
+Create the .env file in the project root directory.
 ```
 nano .env
 ```
@@ -59,13 +52,28 @@ SECRET_KEY=1234
 
 DATABASE_URL=postgresql+psycopg2://{USERNAME}:{PASSWORD}@localhost:5432/flask_db
 ```
-Choose a username and a password and insert them into the .env file at POSTGRES_USER={your chosen username} and POSTGRES_PASSWORD={your chosen password}, respectively. Make sure to also edit the database URL to include your chosen username and password.
+Choose a username and a password and insert them into the .env file:
 
-Run Docker.
+POSTGRES_USER={your chosen username}
+
+POSTGRES_PASSWORD={your chosen password}
+
+Make sure to also edit the database URL to include your chosen username and password.
+
+For example:
+```
+POSTGRES_USER=Gabriel
+POSTGRES_PASSWORD=Gabe12
+POSTGRES_DB=flask_db
+SECRET_KEY=1234
+
+DATABASE_URL=postgresql+psycopg2://Gabriel:Gabe12@localhost:5432/flask_db
+```
+Run Docker:
 ```
 docker compose up -d
 ```
-This runs Docker in the background. Then, you can start flask from the src directory. 
+Now the database has been created and initialized. The program can be run with the following command in the src directory:
 ```
 poetry run flask run
 ```
@@ -73,6 +81,19 @@ The software should automatically create a database in your Docker and the table
 Then, it should print the test column in the console.
 
 Database functions need to be used with app context in this style:  
+```
 with app.app_context():  
     database.esim()
-    
+```
+##  Resetting the database
+
+If you run in to trouble with the database, you may reset it in the following way:
+```
+docker compose down -v
+```
+Reinitialize database:
+```
+docker compose up -d
+```
+
+
