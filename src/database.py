@@ -81,11 +81,11 @@ def get(key=None, order = "id", descending = True, attribute = "key"):
         q = model.query
         if key:
             if attribute == "key":
-                q = q.filter_by(key=key)
+                q = q.filter(model.key.ilike(f"%{key}%"))
             elif attribute == "author":
-                q = q.filter_by(author=key)
+                q = q.filter(model.author.ilike(f"%{key}%"))
             elif attribute == "title":
-                q = q.filter_by(title=key)
+                q = q.filter(model.title.ilike(f"%{key}%"))
         #Varmistetaan onko arvoa millä pitäisi järjestää haku
         v_order = getattr(model, order, None)
         if v_order is not None:
@@ -104,3 +104,19 @@ def get(key=None, order = "id", descending = True, attribute = "key"):
         "artikkeli": query_avustaja(Artikkeli_viite), 
         "konferenssi": query_avustaja(Konferenssijulkaisu_viite)
         }
+
+
+def delete(key, model):
+    if model == "kirja":
+        viite=Kirja_viite.query.filter_by(key=key).first()
+        db.session.delete(viite)
+        db.session.commit()
+    elif model == "artikkeli":
+        viite=Artikkeli_viite.query.filter_by(key=key).first()
+        db.session.delete(viite)
+        db.session.commit()
+
+    elif model == "konferenssi":
+        viite=Konferenssijulkaisu_viite.query.filter_by(key=key).first()
+        db.session.delete(viite)
+        db.session.commit()

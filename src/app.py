@@ -103,6 +103,11 @@ def reference_list():
                 for item in sublist]
     return render_template("reference_list.html", references=ref_list)
 
+
+@app.route("/delete/<string:key>/<string:model>", methods=["POST"])
+def delete_reference(key, model):
+    database.delete(key, model)
+    return redirect(request.referrer)
 if __name__ == "__main__":
     initialize_database()
     app.run(host="0.0.0.0", port=5001)
