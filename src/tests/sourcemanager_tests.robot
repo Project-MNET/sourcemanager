@@ -10,22 +10,26 @@ ${BASE_URL}    http://localhost:5001
 *** Test Cases ***
 Page Should Open Successfully
     Open And Configure Browser
+    [Documentation]    Testaa etusivun aukeamisen
     Wait Until Page Contains    Sourcemanager - Lähdeviitearkisto     timeout=5s
 
 Add Reference Link Should Work
     Open And Configure Browser
+    [Documentation]     Testaa Viitten lisäys linkin toiminnan
     Click Link    Lisää viite
     Wait Until Page Contains    Valitse viitteen tyyppi:    timeout=5s
     Go Back
 
 Reference List Link Should Work
     Open And Configure Browser
+    [Documentation]     Testaa viitelistasivun toiminnan
     Click Link    Listaa kaikki viitteet
     Wait Until Page Contains    Kaikki viitteet    timeout=5s
     Go Back
 
 Search Link Should Work
     Open And Configure Browser
+    [Documentation]     Testaa Hakulinkin toiminnan
     Click Link    Hae arkistosta
     Wait Until Page Contains    Haku    timeout=5s
     Go Back
@@ -52,4 +56,16 @@ Check Book Reference In List
     Wait Until Page Contains           Test Title
     Page Should Contain                Test Author
     Page Should Contain                Test Title
+
+Search Field Should Work
+    Open And Configure Browser
+    [Documentation]      Testaa Hakukentän
+    Go To      ${BASE_URL}/search
+    Wait Until Page Contains Element    name=query    timeout=5s
+    Input Text    name=query    Test Title
+    Click Button     Lähetä
+    Wait Until Page Contains    Test Title    timeout=5s
+    Page Should Contain    Test Author
+    Page Should Contain    2025
+    Close Browser
     
