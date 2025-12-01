@@ -12,3 +12,6 @@ src/tests/output/
 .pytest_cache/
 coverage.xml
 htmlcov/
+log.html
+report.html
+output.xml
