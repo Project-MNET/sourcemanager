@@ -2,9 +2,9 @@
 Library  SeleniumLibrary
 
 *** Variables ***
-${SERVER}    localhost:5000
+${SERVER}    localhost:5001
 ${DELAY}     0.5 seconds
-${HOME_URL}  http://127.0.0.1:5000/
+${HOME_URL}  http://127.0.0.1:5001/
 ${BROWSER}   chrome
 ${HEADLESS}  false
 
