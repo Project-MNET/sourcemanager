@@ -1,6 +1,6 @@
 from .init_db import db
 
-class Kirja_viite(db.Model):
+class KirjaViite(db.Model):
     __tablename__ = "Kirja_viite"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     key = db.Column(db.String(50), unique = True, nullable = False)
@@ -15,7 +15,10 @@ class Kirja_viite(db.Model):
             f"{self.title}, {self.year}, {self.publisher}>"
             )
 
-class Artikkeli_viite(db.Model):
+    def to_dict(self):
+        return vars(self)
+
+class ArtikkeliViite(db.Model):
     __tablename__ = "Artikkeli_viite"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     key = db.Column(db.String(50), unique=True, nullable=False)
@@ -32,7 +35,10 @@ class Artikkeli_viite(db.Model):
             f"{self.title}, {self.year}, {self.journal}, {self.volume}, {self.pages}>"
             )
 
-class Konferenssijulkaisu_viite(db.Model):
+    def to_dict(self):
+        return vars(self)
+
+class KonferenssijulkaisuViite(db.Model):
     __tablename__ = "Konferenssijulkaisu_viite"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     key = db.Column(db.String(50), unique=True, nullable=False)
@@ -46,3 +52,6 @@ class Konferenssijulkaisu_viite(db.Model):
             f"Konferenssijulkaisu_viite {self.id} | {self.key}, {self.author}, "
             f"{self.title}, {self.year}, {self.booktitle}>"
             )
+
+    def to_dict(self):
+        return vars(self)
