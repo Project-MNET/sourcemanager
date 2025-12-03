@@ -81,11 +81,11 @@ def get(key=None, order = "id", descending = True, attribute = "key"):
         q = model.query
         if key:
             if attribute == "key":
-                q = q.filter_by(key=key)
+                q = q.filter(model.key.ilike(f"%{key}%"))
             elif attribute == "author":
-                q = q.filter_by(author=key)
+                q = q.filter(model.author.ilike(f"%{key}%"))
             elif attribute == "title":
-                q = q.filter_by(title=key)
+                q = q.filter(model.title.ilike(f"%{key}%"))
         #Varmistetaan onko arvoa millä pitäisi järjestää haku
         v_order = getattr(model, order, None)
         if v_order is not None:
@@ -106,6 +106,21 @@ def get(key=None, order = "id", descending = True, attribute = "key"):
         "konferenssi": query_avustaja(KonferenssijulkaisuViite)
         }
 
+
+def delete(key, model):
+    if model == "kirja":
+        viite=Kirja_viite.query.filter_by(key=key).first()
+        db.session.delete(viite)
+        db.session.commit()
+    elif model == "artikkeli":
+        viite=Artikkeli_viite.query.filter_by(key=key).first()
+        db.session.delete(viite)
+        db.session.commit()
+
+    elif model == "konferenssi":
+        viite=Konferenssijulkaisu_viite.query.filter_by(key=key).first()
+        db.session.delete(viite)
+        db.session.commit()
 def unique_key_check(key):
     #Tarkistetaan onko key uniikki kaikissa pöydissä.
     kirja_tarkistus = KirjaViite.query.filter_by(key=key).first()
