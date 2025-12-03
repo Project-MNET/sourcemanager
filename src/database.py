@@ -150,7 +150,7 @@ def generate_bibtex():
         entries.append(make_entry("Book", k.key, [
             ("author", k.author),
             ("title", k.title),
-            ("year", k.year),
+            ("year", str(k.year)),
             ("publisher", k.publisher),
         ]))
 
@@ -158,7 +158,7 @@ def generate_bibtex():
         entries.append(make_entry("Article", a.key, [
             ("author", a.author),
             ("title", a.title),
-            ("year", a.year),
+            ("year", str(a.year)),
             ("journal", a.journal),
             ("volume", a.volume),
             ("pages", a.pages),
@@ -168,7 +168,7 @@ def generate_bibtex():
         entries.append(make_entry("Inproceedings", c.key, [
             ("author", c.author),
             ("title", c.title),
-            ("year", c.year),
+            ("year", str(c.year)),
             ("booktitle", c.booktitle),
         ]))
 

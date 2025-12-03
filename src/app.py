@@ -118,15 +118,19 @@ def reference_list():
 def delete_reference(key, model):
     database.delete(key, model)
     return redirect(request.referrer)
-if __name__ == "__main__":
-    initialize_database()
-    app.run(host="0.0.0.0", port=5001)
+
 
 @app.route('/reference_list/download')
 def download_references():
     bibtex_file = database.generate_bibtex()
     buffer = BytesIO(bibtex_file.encode('utf-8'))
+    buffer.seek(0)
     return send_file(buffer,
                      as_attachment=True,
                      download_name="references.bib",
                      mimetype="application/x-bibtex")
+
+if __name__ == "__main__":
+    initialize_database()
+    app.run(host="0.0.0.0", port=5001)
+
