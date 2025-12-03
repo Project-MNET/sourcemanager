@@ -3,10 +3,16 @@
 
 <head>
   <title>Viitteet</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
     <h1>Kaikki viitteet</h1>
+      <div class="button-container" style="text-align: center">
+      <a class="button" href="/">Takaisin etusivulle</a>
+      <a class="button" href="/reference_list/download">Lataa kaikki viitteet</a>
+    </div>
+    <br>
         {% for ref in references %}
         <li>
             {{ref.author}}: {{ref.title}}, {{ref.year}}

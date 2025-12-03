@@ -129,3 +129,47 @@ def unique_key_check(key):
     if kirja_tarkistus or artikkeli_tarkistus or konferenssi_tarkistus:
         return False
     return True
+
+def make_entry(entry_type, key, pairs):
+    #apufunktio bibtex merkinnän luomiseen
+    #Ei lisää tyhjiä kenttiä
+    lines = [f"@{entry_type}{{{key},"]
+    for name, value in pairs:
+        if value:  # None tai tyhjä merkkijono jää pois
+            lines.append(f"  {name} = {{{value}}},")
+    if lines[-1].endswith(","):
+        lines[-1] = lines[-1][:-1]
+    lines.append("}")
+    return "\n".join(lines) + "\n"
+
+def generate_bibtex():
+    #Funktio joka generoi bibtex tiedoston kaikista viitteistä
+    entries = []
+
+    for k in KirjaViite.query.all():
+        entries.append(make_entry("Book", k.key, [
+            ("author", k.author),
+            ("title", k.title),
+            ("year", k.year),
+            ("publisher", k.publisher),
+        ]))
+
+    for a in ArtikkeliViite.query.all():
+        entries.append(make_entry("Article", a.key, [
+            ("author", a.author),
+            ("title", a.title),
+            ("year", a.year),
+            ("journal", a.journal),
+            ("volume", a.volume),
+            ("pages", a.pages),
+        ]))
+
+    for c in KonferenssijulkaisuViite.query.all():
+        entries.append(make_entry("Inproceedings", c.key, [
+            ("author", c.author),
+            ("title", c.title),
+            ("year", c.year),
+            ("booktitle", c.booktitle),
+        ]))
+
+    return "\n".join(entries)
