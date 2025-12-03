@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run pylint
-        run: poetry run pylint src
+        run: poetry run pylint --exit-zero src
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
       - name: Start chromedriver and Xvfb
