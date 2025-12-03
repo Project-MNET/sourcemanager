@@ -15,7 +15,7 @@ Page Should Open Successfully
 
 Add Reference Link Should Work
     Open And Configure Browser
-    [Documentation]     Testaa Viitten lisäys linkin toiminnan
+    [Documentation]     Testaa viitten lisäys linkin toiminnan
     Click Link    Lisää viite
     Wait Until Page Contains    Valitse viitteen tyyppi:    timeout=5s
     Go Back
@@ -59,7 +59,7 @@ Check Book Reference In List
 
 Search Field Should Work
     Open And Configure Browser
-    [Documentation]      Testaa Hakukentän
+    [Documentation]      Testaa Hakukentän, Sovelluksessa on hakutoiminto, jolla voi hakea viitteitä hakusanalla.
     Go To      ${BASE_URL}/search
     Wait Until Page Contains Element    name=query    timeout=5s
     Input Text    name=query    Test Title
