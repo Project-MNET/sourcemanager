@@ -109,16 +109,16 @@ def get(key=None, order = "id", descending = True, attribute = "key"):
 
 def delete(key, model):
     if model == "kirja":
-        viite=Kirja_viite.query.filter_by(key=key).first()
+        viite=KirjaViite.query.filter_by(key=key).first()
         db.session.delete(viite)
         db.session.commit()
     elif model == "artikkeli":
-        viite=Artikkeli_viite.query.filter_by(key=key).first()
+        viite=ArtikkeliViite.query.filter_by(key=key).first()
         db.session.delete(viite)
         db.session.commit()
 
     elif model == "konferenssi":
-        viite=Konferenssijulkaisu_viite.query.filter_by(key=key).first()
+        viite=KonferenssijulkaisuViite.query.filter_by(key=key).first()
         db.session.delete(viite)
         db.session.commit()
 def unique_key_check(key):
