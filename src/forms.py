@@ -16,6 +16,7 @@ class ReferenceForm(FlaskForm):
     Length(max=256, message='Title ei voi olla yli 256 merkkiä')])
     year = IntegerField('Year', validators=[DataRequired(message='Year on pakollinen, 1-3000'),
     NumberRange(min=1, max=3000, message='Year tulee olla välillä 1-3000')])
+    doi = StringField('Publisher', validators=[Optional()])
     publisher = StringField('Publisher', validators=[Optional(),
     Length(max=256, message='Publisher ei voi olla yli 256 merkkiä')])        # Book only
     journal = StringField('Journal', validators=[Optional(),

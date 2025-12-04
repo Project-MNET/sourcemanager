@@ -27,12 +27,12 @@ def hae_tieto():
 #Alle teen funktioita jotka sitten sijoittavat tietoa pöytiin.
 #Pöydät ovat sittenkin jaoteltu 3 eri pöytään ne löytyvät models.py osiosta.
 
-def create_kirja(key, author, title, year, publisher):
+def create_kirja(key, author, title, year, publisher, doi=""):
     tarkistus = KirjaViite.query.filter_by(key=key).first()
     if tarkistus :
         print("Key osio ei ole uniikki")
     else:
-        viite = KirjaViite(key=key, author=author, title=title, year=year, publisher=publisher)
+        viite = KirjaViite(key=key, author=author, title=title, year=year, publisher=publisher, doi=doi)
         db.session.add(viite)
         try:
             db.session.commit()
@@ -42,13 +42,13 @@ def create_kirja(key, author, title, year, publisher):
         db.session.refresh(viite)
         print(KirjaViite.query.filter_by(key=key).first())
 
-def create_artikkeli(key, author, title, year, journal, volume, pages):
+def create_artikkeli(key, author, title, year, journal, volume, pages, doi=""):
     tarkistus = ArtikkeliViite.query.filter_by(key=key).first()
     if tarkistus :
         print("Key osio ei ole uniikki")
     else:
         viite = ArtikkeliViite(key=key, author=author, title=title,
-        year=year, journal=journal, volume=volume, pages=pages)
+        year=year, journal=journal, volume=volume, pages=pages, doi=doi)
         db.session.add(viite)
         try:
             db.session.commit()
@@ -58,13 +58,13 @@ def create_artikkeli(key, author, title, year, journal, volume, pages):
         db.session.refresh(viite)
         print(ArtikkeliViite.query.filter_by(key=key).first())
 
-def create_konferenssijulkaisu(key, author, title, year, booktitle):
+def create_konferenssijulkaisu(key, author, title, year, booktitle, doi=""):
     tarkistus = KonferenssijulkaisuViite.query.filter_by(key=key).first()
     if tarkistus :
         print("Key osio ei ole uniikki")
     else:
         viite = KonferenssijulkaisuViite(key=key,author=author, title=title, year=year,
-        booktitle=booktitle)
+        booktitle=booktitle, doi=doi)
         db.session.add(viite)
         try:
             db.session.commit()

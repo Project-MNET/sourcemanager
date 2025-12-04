@@ -8,11 +8,12 @@ class KirjaViite(db.Model):
     title = db.Column(db.String(256))
     year = db.Column(db.Integer)
     publisher = db.Column(db.String(256))
+    doi = db.Column(db.String(40), unique = True)
 
     def __repr__(self):
         return (
             f"Kirja_viite {self.id} | {self.key}, {self.author}, "
-            f"{self.title}, {self.year}, {self.publisher}>"
+            f"{self.title}, {self.year}, {self.publisher}, {self.doi}>"
             )
 
     def to_dict(self):
@@ -28,10 +29,11 @@ class ArtikkeliViite(db.Model):
     journal = db.Column(db.String(256))
     volume = db.Column(db.String(256))
     pages = db.Column(db.String(256))
+    doi = db.Column(db.String(40), unique = True)
     def __repr__(self):
         return (
             f"Artikkeli_viite {self.id} | {self.key}, {self.author}, "
-            f"{self.title}, {self.year}, {self.journal}, {self.volume}, {self.pages}>"
+            f"{self.title}, {self.year}, {self.journal}, {self.volume}, {self.pages}, {self.doi}>"
             )
 
     def to_dict(self):
@@ -45,11 +47,12 @@ class KonferenssijulkaisuViite(db.Model):
     title = db.Column(db.String(256))
     year = db.Column(db.Integer)
     booktitle = db.Column(db.String(256))
+    doi = db.Column(db.String(40), unique = True)
 
     def __repr__(self):
         return (
             f"Konferenssijulkaisu_viite {self.id} | {self.key}, {self.author}, "
-            f"{self.title}, {self.year}, {self.booktitle}>"
+            f"{self.title}, {self.year}, {self.booktitle}, {self.doi}>"
             )
 
     def to_dict(self):
