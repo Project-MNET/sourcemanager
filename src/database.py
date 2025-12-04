@@ -130,6 +130,17 @@ def unique_key_check(key):
         return False
     return True
 
+def unique_doi_check(doi):
+    #Tarkistetaan onko key uniikki kaikissa pöydissä.
+    kirja_tarkistus = KirjaViite.query.filter_by(doi=doi).first()
+    artikkeli_tarkistus = ArtikkeliViite.query.filter_by(doi=doi).first()
+    konferenssi_tarkistus = KonferenssijulkaisuViite.query.filter_by(doi=doi).first()
+    if kirja_tarkistus or artikkeli_tarkistus or konferenssi_tarkistus:
+        return False
+    return True
+
+
+
 def make_entry(entry_type, key, pairs):
     #apufunktio bibtex merkinnän luomiseen
     #Ei lisää tyhjiä kenttiä

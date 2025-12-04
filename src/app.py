@@ -79,20 +79,21 @@ def add_reference():
         author = form.author.data
         title = form.title.data
         year = form.year.data
+        doi = form.doi.data
 
         # Tarkistetaan viitteen tyyppi, poimitaan puuttuvat tiedot
         # ja kutsutaan vastaavaa funktiota tallentamaan tietokantaan
         if ref_type == "Book":
             publisher = form.publisher.data
-            database.create_kirja(key, author, title, year, publisher)
+            database.create_kirja(key, author, title, year, publisher, doi)
         elif ref_type == "Article":
             journal = form.journal.data
             volume = form.volume.data
             pages = form.pages.data
-            database.create_artikkeli(key, author, title, year, journal, volume, pages)
+            database.create_artikkeli(key, author, title, year, journal, volume, pages, doi)
         elif ref_type == "Inproceedings":
             booktitle = form.booktitle.data
-            database.create_konferenssijulkaisu(key, author, title, year, booktitle)
+            database.create_konferenssijulkaisu(key, author, title, year, booktitle, doi)
 
         return redirect('/')
 
