@@ -49,6 +49,12 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
+      - name: Coverage report to Codecov
+        uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
       - name: Run pylint
         run: poetry run pylint --exit-zero src
       - name: Setup chromedriver

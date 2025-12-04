@@ -1,6 +1,8 @@
 # sourcemanager
 [![CI](https://github.com/Project-MNET/sourcemanager/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Project-MNET/sourcemanager/actions)
 
+[![codecov](https://codecov.io/github/Project-MNET/sourcemanager/graph/badge.svg?token=2YKCU8Z9FR)](https://codecov.io/github/Project-MNET/sourcemanager)
+
 A program to chart, manage, and view sources/references.
 
 This project is licensed under the terms of the GNU GPLv3 license.
