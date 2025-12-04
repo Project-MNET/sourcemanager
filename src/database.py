@@ -163,6 +163,7 @@ def generate_bibtex():
             ("title", k.title),
             ("year", str(k.year)),
             ("publisher", k.publisher),
+            ("doi", k.doi),
         ]))
 
     for a in ArtikkeliViite.query.all():
@@ -173,6 +174,7 @@ def generate_bibtex():
             ("journal", a.journal),
             ("volume", a.volume),
             ("pages", a.pages),
+            ("doi", a.doi),
         ]))
 
     for c in KonferenssijulkaisuViite.query.all():
@@ -181,6 +183,7 @@ def generate_bibtex():
             ("title", c.title),
             ("year", str(c.year)),
             ("booktitle", c.booktitle),
+            ("doi", c.doi),
         ]))
 
     return "\n".join(entries)
