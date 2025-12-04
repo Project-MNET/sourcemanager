@@ -12,7 +12,6 @@ class ReferenceForm(FlaskForm):
     Length(max=64, message='Key ei voi olla yli 64 merkkiä')])
     author = StringField('Author', validators=[DataRequired(message='Author on pakollinen'),
     Length(max=512, message='Author ei voi olla yli 512 merkkiä')])
-    # Huom tämä täytyy vaihtaa ehkä suuremmaksi, author voi olla pitkä lista
     title = StringField('Title', validators=[DataRequired(message='Title on pakollinen'),
     Length(max=256, message='Title ei voi olla yli 256 merkkiä')])
     year = IntegerField('Year', validators=[DataRequired(message='Year on pakollinen, 1-3000'),
