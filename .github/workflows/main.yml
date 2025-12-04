@@ -28,7 +28,7 @@ jobs:
 
     env:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@localhost:5432/sourcemanager
-      SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://postgres:postgres@locahost:5432/sourcemanager
+      SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://postgres:postgres@localhost:5432/sourcemanager
 
     steps:
       - uses: actions/checkout@v5
@@ -40,6 +40,15 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
+      - name: Run pytest with coverage
+        run: PYTHONPATH=src poetry run coverage run --branch -m pytest src/tests
+      - name: Generate coverage XML
+        run: poetry run coverage xml
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
       - name: Run pylint
         run: poetry run pylint --exit-zero src
       - name: Setup chromedriver
@@ -51,5 +60,3 @@ jobs:
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
       - name: Run Robot tests
         run: bash run_robot_tests.sh
-      - name: Run pytest with coverage
-        run: PYTHONPATH=src poetry run coverage run --branch -m pytest src/tests
