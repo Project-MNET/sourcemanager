@@ -59,7 +59,7 @@
                     {% for viite in kirja %}
                     <li>
                         Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}
-                        <form action="{{ url_for('delete_reference', key=viite.key, model='kirja')}}" method ="POST">
+                        <form action="{{ url_for('delete_reference', key=viite.key, model='kirja')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit">Poista</button>
                         </form>
@@ -73,7 +73,7 @@
                     {% for viite in artikkeli %}
                     <li>
                         Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}} Journal: {{viite.journal}} Volume: {{viite.volume}} Pages: {{viite.pages}}
-                        <form action="{{ url_for('delete_reference', key=viite.key, model='artikkeli')}}" method ="POST">
+                        <form action="{{ url_for('delete_reference', key=viite.key, model='artikkeli')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit">Poista</button>
                         </form>
@@ -86,7 +86,7 @@
                     {% for viite in konferenssi %}
                     <li>
                         Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}
-                        <form action="{{ url_for('delete_reference', key=viite.key, model='konferenssi')}}" method ="POST">
+                        <form action="{{ url_for('delete_reference', key=viite.key, model='konferenssi')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit">Poista</button>
                         </form>

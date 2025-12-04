@@ -16,6 +16,40 @@
         {% for ref in references %}
         <li>
             {{ref.author}}: {{ref.title}}, {{ref.year}}
+            {% if ref.__class__.__tablename__ == "Artikkeli_viite" %}
+              <form action = "{{ url_for('delete_reference', key = ref.key, model='artikkeli') }}"
+                method = "POST" style = "display:inline;">
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger btn-sm">
+                  Poista
+                </button>
+              </form>
+            {% endif %}
+
+            {% if ref.__class__.__tablename__ == "Kirja_viite" %}
+                <form action = "{{ url_for('delete_reference', key = ref.key, model='kirja') }}"
+                  method = "POST" style = "display:inline;">
+
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    Poista
+                  </button>
+                </form>
+            {% endif %}
+
+            {% if ref.__class__.__tablename__ == "Konferenssijulkaisu_viite" %}
+                <form action = "{{ url_for('delete_reference', key = ref.key, model='konferenssi') }}"
+                  method = "POST" style = "display:inline;">
+
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    Poista
+                  </button>
+                </form>
+
+            {% endif %}
+
         </li>
         {% endfor %}
 </body>

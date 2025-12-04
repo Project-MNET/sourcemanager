@@ -106,7 +106,7 @@ def add_reference():
     return render_template("add_reference.html", form=form, error_list=error_list)
 
 
-@app.route('/reference_list')
+@app.route('/reference_list', methods=["GET", "POST"])
 def reference_list():
     references_dict = database.get()
     ref_list = [item for sublist in references_dict.values()
