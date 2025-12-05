@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, ValidationError, IntegerField
 from wtforms.validators import DataRequired, Length, Optional, NumberRange
-from .database import unique_key_check, unique_doi_check
+from database import unique_key_check, unique_doi_check
 
 class ReferenceForm(FlaskForm):
     reference_type = SelectField(

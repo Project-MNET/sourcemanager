@@ -1,4 +1,4 @@
-from .init_db import db
+from init_db import db
 
 class KirjaViite(db.Model):
     __tablename__ = "Kirja_viite"

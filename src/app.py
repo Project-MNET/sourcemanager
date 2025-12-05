@@ -5,9 +5,9 @@ from flask_wtf import CSRFProtect
 
 
 
-from .init_db import init, db
-from . import database
-from .forms import ReferenceForm
+from init_db import init, db
+import database
+from forms import ReferenceForm
 
 load_dotenv()
 
@@ -132,6 +132,3 @@ def download_references():
                      download_name="references.bib",
                      mimetype="application/x-bibtex")
 
-if __name__ == "__main__":
-    initialize_database()
-    app.run(host="0.0.0.0", port=5001)
