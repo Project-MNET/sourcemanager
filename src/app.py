@@ -131,4 +131,3 @@ def download_references():
                      as_attachment=True,
                      download_name="references.bib",
                      mimetype="application/x-bibtex")
-

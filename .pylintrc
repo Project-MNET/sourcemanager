@@ -2,7 +2,7 @@
 
 ignore-paths=src/tests
 ignore=single_file_to_ignore.py
-
+init-hook='import sys; import os; sys.path.insert(0, os.path.abspath("src"))'
 [MESSAGE CONTROL]
 
 disable=raw-checker-failed,
