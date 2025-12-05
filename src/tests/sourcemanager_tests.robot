@@ -48,6 +48,37 @@ Add Book Reference
     Click Button     Lisää viite
     Page Should Contain           Sourcemanager - Lähdeviitearkisto
     
+Add Article Reference
+    Open And Configure Browser
+    [Documentation]    Testaa artikkeli-viitteen lisääminen
+    Go To      ${BASE_URL}/add_reference      
+    Wait Until Page Contains Element    id=reference_type
+    Select From List By Value           id=reference_type    Article
+    Input Text       id=key        TEST_ARTICLE
+    Input Text       id=author     Test Author
+    Input Text       id=title      Test Article
+    Input Text       id=year       2025
+    Input Text       id=doi  Test doi_Article
+    Input Text       id=journal  Test Journal
+    Input Text       id=volume  Volume_test
+    Input Text       id=pages  Pages_test
+    Click Button     Lisää viite
+    Page Should Contain           Sourcemanager - Lähdeviitearkisto
+
+Add Inproceedings Reference
+    Open And Configure Browser
+    [Documentation]    Testaa konferenssijulkaisun lisääminen
+    Go To      ${BASE_URL}/add_reference      
+    Wait Until Page Contains Element    id=reference_type
+    Select From List By Value           id=reference_type    Inproceedings
+    Input Text       id=key        TEST_INPROCEEDINGS
+    Input Text       id=author     Test Author
+    Input Text       id=title      Test Title
+    Input Text       id=year       2025
+    Input Text       id=booktitle  Test BookTitle
+    Click Button     Lisää viite
+    Page Should Contain           Sourcemanager - Lähdeviitearkisto
+
 
 Check Book Reference In List
     Open And Configure Browser
