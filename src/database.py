@@ -1,12 +1,12 @@
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-from .models import (
+from models import (
     KirjaViite,
     ArtikkeliViite,
     KonferenssijulkaisuViite
 )
 
-from .init_db import db
+from init_db import db
 #luodaan pöydät tietokantaan.
 def luonti():
     db.create_all()

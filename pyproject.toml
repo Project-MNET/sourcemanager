@@ -21,7 +21,7 @@ name = "sourcemanager"
 packages = [
     { include = "src" }
 ]
-package-mode = false
+package-mode = true
 
 
 [build-system]
@@ -41,3 +41,5 @@ dev = [
 [tool.poetry.scripts]
 flask-app = "src.app:app"
 
+[tool.pytest.ini_options]
+pythonpath = ["src"]
