@@ -61,7 +61,7 @@
                         Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}
                         <form action="{{ url_for('delete_reference', key=viite.key, model='kirja')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit">Poista</button>
+                            <button type="submit" onclick="return confirm('Haluatko varmasti poistaa tämän viitteen?')">Poista</button>
                         </form>
                         </form>
                     </li>
