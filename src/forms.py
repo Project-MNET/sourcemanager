@@ -36,11 +36,10 @@ class ReferenceForm(FlaskForm):
             return
         if not unique_key_check(val):
             raise ValidationError('Tämä key on jo käytössä (duplikaatti)!')
-    
+
     def validate_doi(self, field):
         val = (field.data or '').strip()
         if not val:
             return
         if not unique_doi_check(val):
             raise ValidationError('Tämä doi-tunnus on jo käytössä (duplikaatti)!')
-

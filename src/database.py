@@ -27,12 +27,17 @@ def hae_tieto():
 #Alle teen funktioita jotka sitten sijoittavat tietoa pöytiin.
 #Pöydät ovat sittenkin jaoteltu 3 eri pöytään ne löytyvät models.py osiosta.
 
-def create_kirja(key, author, title, year, publisher, doi=""):
-    tarkistus = KirjaViite.query.filter_by(key=key).first()
+def create_kirja(ref_information):
+    tarkistus = KirjaViite.query.filter_by(key=ref_information["key"]).first()
     if tarkistus :
         print("Key osio ei ole uniikki")
     else:
-        viite = KirjaViite(key=key, author=author, title=title, year=year, publisher=publisher, doi=doi)
+        viite = KirjaViite(key=ref_information["key"],
+                           author=ref_information["author"],
+                           title=ref_information["title"],
+                           year=ref_information["year"],
+                           publisher=ref_information["publisher"],
+                           doi=ref_information["doi"])
         db.session.add(viite)
         try:
             db.session.commit()
@@ -40,15 +45,21 @@ def create_kirja(key, author, title, year, publisher, doi=""):
             db.session.rollback()
             raise
         db.session.refresh(viite)
-        print(KirjaViite.query.filter_by(key=key).first())
+        print(KirjaViite.query.filter_by(key=ref_information["key"]).first())
 
-def create_artikkeli(key, author, title, year, journal, volume, pages, doi=""):
-    tarkistus = ArtikkeliViite.query.filter_by(key=key).first()
+def create_artikkeli(ref_information):
+    tarkistus = ArtikkeliViite.query.filter_by(key=ref_information["key"]).first()
     if tarkistus :
         print("Key osio ei ole uniikki")
     else:
-        viite = ArtikkeliViite(key=key, author=author, title=title,
-        year=year, journal=journal, volume=volume, pages=pages, doi=doi)
+        viite = ArtikkeliViite(key=ref_information["key"],
+                            author=ref_information["author"],
+                            title=ref_information["title"],
+                            year=ref_information["year"],
+                            journal=ref_information["journal"],
+                            volume=ref_information["volume"],
+                            pages=ref_information["pages"],
+                            doi=ref_information["doi"])
         db.session.add(viite)
         try:
             db.session.commit()
@@ -56,15 +67,19 @@ def create_artikkeli(key, author, title, year, journal, volume, pages, doi=""):
             db.session.rollback()
             raise
         db.session.refresh(viite)
-        print(ArtikkeliViite.query.filter_by(key=key).first())
+        print(ArtikkeliViite.query.filter_by(key=ref_information["key"]).first())
 
-def create_konferenssijulkaisu(key, author, title, year, booktitle, doi=""):
-    tarkistus = KonferenssijulkaisuViite.query.filter_by(key=key).first()
+def create_konferenssijulkaisu(ref_information):
+    tarkistus = KonferenssijulkaisuViite.query.filter_by(key=ref_information["key"]).first()
     if tarkistus :
         print("Key osio ei ole uniikki")
     else:
-        viite = KonferenssijulkaisuViite(key=key,author=author, title=title, year=year,
-        booktitle=booktitle, doi=doi)
+        viite = KonferenssijulkaisuViite(key=ref_information["key"],
+                                        author=ref_information["author"],
+                                        title=ref_information["title"],
+                                        year=ref_information["year"],
+                                        booktitle=ref_information["booktitle"],
+                                        doi=ref_information["doi"])
         db.session.add(viite)
         try:
             db.session.commit()
@@ -72,7 +87,7 @@ def create_konferenssijulkaisu(key, author, title, year, booktitle, doi=""):
             db.session.rollback()
             raise
         db.session.refresh(viite)
-        print(KonferenssijulkaisuViite.query.filter_by(key=key).first())
+        print(KonferenssijulkaisuViite.query.filter_by(key=ref_information["key"]).first())
 
 
 def get(key=None, order = "id", descending = True, attribute = "key"):

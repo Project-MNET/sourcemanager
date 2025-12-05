@@ -1,7 +1,8 @@
+from io import BytesIO
 from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, send_file
 from flask_wtf import CSRFProtect
-from io import BytesIO
+
 
 
 from .init_db import init, db
@@ -29,8 +30,6 @@ with app.app_context():
 def initialize_database():
     with app.app_context():
         database.luonti()
-        database.create_kirja("Avain", "Testi",
-     "Title", "2025", "Publisher")
         database.hae_tieto()
 
 @app.route('/')
@@ -75,25 +74,27 @@ def add_reference():
     if form.validate_on_submit():
         #Poimitaan tiedot lomakkeesta
         ref_type = form.reference_type.data
-        key = form.key.data
-        author = form.author.data
-        title = form.title.data
-        year = form.year.data
-        doi = form.doi.data
-
+        #Tallennetaan kaikki tieto dictionaryyn.
+        ref_information = {}
+        ref_information["type"] = form.reference_type.data
+        ref_information["key"] = form.key.data
+        ref_information["author"] = form.author.data
+        ref_information["title"] = form.title.data
+        ref_information["year"] = form.year.data
+        ref_information["doi"] = form.doi.data
         # Tarkistetaan viitteen tyyppi, poimitaan puuttuvat tiedot
         # ja kutsutaan vastaavaa funktiota tallentamaan tietokantaan
         if ref_type == "Book":
-            publisher = form.publisher.data
-            database.create_kirja(key, author, title, year, publisher, doi)
+            ref_information["publisher"] = form.publisher.data
+            database.create_kirja(ref_information)
         elif ref_type == "Article":
-            journal = form.journal.data
-            volume = form.volume.data
-            pages = form.pages.data
-            database.create_artikkeli(key, author, title, year, journal, volume, pages, doi)
+            ref_information["journal"] = form.journal.data
+            ref_information["volume"] = form.volume.data
+            ref_information["pages"] = form.pages.data
+            database.create_artikkeli(ref_information)
         elif ref_type == "Inproceedings":
-            booktitle = form.booktitle.data
-            database.create_konferenssijulkaisu(key, author, title, year, booktitle, doi)
+            ref_information["booktitle"] = form.booktitle.data
+            database.create_konferenssijulkaisu(ref_information)
 
         return redirect('/')
 
@@ -134,4 +135,3 @@ def download_references():
 if __name__ == "__main__":
     initialize_database()
     app.run(host="0.0.0.0", port=5001)
-
