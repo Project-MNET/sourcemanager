@@ -5,7 +5,7 @@ FLASK_PID=$!
 
 echo "started Flask server"
 
-while ! ncat -z localhost 5001; do
+while ! nc -z localhost 5001; do
   sleep 1
 done
 
