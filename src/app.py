@@ -6,7 +6,7 @@ from flask_wtf import CSRFProtect
 
 
 from .init_db import init, db
-from .import database
+from . import database
 from .forms import ReferenceForm
 
 load_dotenv()
