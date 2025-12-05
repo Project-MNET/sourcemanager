@@ -11,7 +11,7 @@ FLASK_PID=$!
 
 echo "started Flask server"
 
-# Wait until Flask is ready (default port 5000 used by src/index.py)
+# Wait until Flask is ready (port 5001 used by src/index.py)
 FLASK_PORT=5001
 TIMEOUT=15
 COUNT=0
