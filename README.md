@@ -30,14 +30,14 @@ Install poetry.
 ```
 poetry install
 ```
-Move to the src directory.
-```
-cd src
-```
 You should now be able to start the source manager.
 ```
-poetry run flask run
+poetry run python src/index.py
 ```
+Access the app in your browser with the provided address in console.
+
+Usually: 127.0.0.1:5001
+
 ##  Docker POSTGRESQL DATABASE Installation Instructions.
 Download Docker Desktop, the program has to be running when the database is being used.
 
@@ -75,9 +75,9 @@ Run Docker:
 ```
 docker compose up -d
 ```
-Now the database has been created and initialized. The program can be run with the following command in the src directory:
+Now the database has been created and initialized. The program can be run with the following command in the project root.
 ```
-poetry run flask run
+poetry run python src/index.py
 ```
 The software should automatically create a database in your Docker and the tables and create a test column in there.
 Then, it should print the test column in the console.
@@ -89,7 +89,7 @@ with app.app_context():
 ```
 ##  Resetting the database
 
-If you run in to trouble with the database, you may reset it in the following way:
+If you run in to trouble with the database, you may reset it by deleting the container in docker OR in the following way:
 ```
 docker compose down -v
 ```
