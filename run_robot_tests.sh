@@ -36,10 +36,10 @@ poetry run robot --variable HEADLESS:true src/story_tests
 status=$?
 
 # Kill Flask server
-kill -INT $FLASK_PID
+kill -TERM $FLASK_PID
 
 
-wait $FLASK_PID
+wait $FLASK_PID || true
 
 #Nämä pitää kommentoida pois jotta github actions ei vahingossa käytä niitä turhaan.
 #Niitä voi silti käyttää lokaalisti
