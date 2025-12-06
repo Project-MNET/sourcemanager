@@ -149,8 +149,21 @@ Search Field Should Work
     Wait Until Page Contains    Test Book    timeout=5s
     Page Should Contain    Test Author
     Page Should Contain    2025
-    Close Browser
     
+Check Download From Reference List
+    Open And Configure Browser
+    [Documentation]    Tarkistaa, että BIBTEXT:in voi ladata
+    Go To      ${BASE_URL}/reference_list  
+    Wait Until Page Contains Element    link=Lataa kaikki viitteet
+    Click Link    link=Lataa kaikki viitteet
+
+    Create Session    flask    ${BASE_URL}
+    ${bibtex}=    Get On Session    flask    /reference_list/download
+
+    Should Contain    ${bibtex.content}    Book
+    Should Contain    ${bibtex.content}    Article
+    Should Contain    ${bibtex.content}    Inproceedings
+
 Check Deletion From Reference search
     Open And Configure Browser
     [Documentation]    Tarkistaa, että artikkeleita voi poistaa
@@ -168,9 +181,12 @@ Check Deletion From Reference search
 
     Click Element    xpath=//form[contains(@action, '/delete/TEST_INPROCEEDINGS/')]//button
     Handle Alert    action=ACCEPT
-
-
+    
     
     Page Should Not Contain    Test Book
     Page Should Not Contain    Test Article
     Page Should Not Contain    Test Inproceedings
+    Close Browser
+
+
+    
