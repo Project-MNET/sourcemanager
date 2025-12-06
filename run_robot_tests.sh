@@ -8,7 +8,7 @@ export PYTHONPATH=$(pwd)/src
 export COVERAGE_FILE=$(pwd)/.coverage.robot
 
 # Start Flask in background
-poetry run coverage run --parallel-mode --source=src -m src.index &
+poetry run coverage run --parallel-mode --source=src,src/database -m src.index &
 #poetry run python src/index.py &
 FLASK_PID=$!
 trap "kill -TERM $FLASK_PID; wait $FLASK_PID || true" EXIT
