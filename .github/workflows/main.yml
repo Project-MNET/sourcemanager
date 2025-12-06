@@ -42,6 +42,17 @@ jobs:
         run: poetry install
       - name: Run pytest with coverage
         run: PYTHONPATH=src poetry run coverage run --branch -m pytest src/tests
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@master
+      - name: Start chromedriver and Xvfb
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+      - name: Run Robot tests
+        run: bash run_robot_tests.sh
+      - name: Combine coverage reports
+        run: poetry run coverage combine
       - name: Generate coverage XML
         run: poetry run coverage xml
       - name: Upload coverage report
@@ -57,12 +68,3 @@ jobs:
           fail_ci_if_error: true
       - name: Run pylint
         run: poetry run pylint --exit-zero src
-      - name: Setup chromedriver
-        uses: nanasess/setup-chromedriver@master
-      - name: Start chromedriver and Xvfb
-        run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-      - name: Run Robot tests
-        run: bash run_robot_tests.sh
