@@ -15,7 +15,7 @@
     <br>
         {% for ref in references %}
         <li>
-            {{ref.author}}: {{ref.title}}, {{ref.year}}
+            {{ref.author}}: {{ref.title}}, {{ref.year}}, DOI {{ref.doi}}
 
             
             {% if ref.__class__.__tablename__ == "Artikkeli_viite" %}

@@ -58,7 +58,7 @@
                     <strong>Kirjaviitteet</strong><br>
                     {% for viite in kirja %}
                     <li>
-                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}
+                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}, DOI: {{viite.doi}}
                         <form action="{{ url_for('delete_reference', key=viite.key, model='kirja')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit" onclick="return confirm('Haluatko varmasti poistaa tämän viitteen?')">Poista</button>
@@ -72,7 +72,7 @@
                     <br><strong>Artikkeliviitteet</strong>
                     {% for viite in artikkeli %}
                     <li>
-                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}} Journal: {{viite.journal}} Volume: {{viite.volume}} Pages: {{viite.pages}}
+                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Journal: {{viite.journal}}, Volume: {{viite.volume}}, Pages: {{viite.pages}}, DOI: {{viite.doi}}
                         <form action="{{ url_for('delete_reference', key=viite.key, model='artikkeli')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit">Poista</button>
@@ -85,7 +85,7 @@
                     <br><strong>Konferenssiviitteet</strong>
                     {% for viite in konferenssi %}
                     <li>
-                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}
+                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}, DOI: {{viite.doi}}
                         <form action="{{ url_for('delete_reference', key=viite.key, model='konferenssi')}}" method ="POST" style = "display:inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit">Poista</button>
