@@ -42,7 +42,7 @@ Add Book Reference
     Select From List By Value           id=reference_type    Book
     Input Text       id=key        TEST_BOOK_2
     Input Text       id=author     Test Author
-    Input Text       id=title      Test Title
+    Input Text       id=title      Test Book
     Input Text       id=year       2025
     Input Text       id=publisher  Test Publisher
     Click Button     Lisää viite
@@ -73,7 +73,7 @@ Add Inproceedings Reference
     Select From List By Value           id=reference_type    Inproceedings
     Input Text       id=key        TEST_INPROCEEDINGS
     Input Text       id=author     Test Author
-    Input Text       id=title      Test Title
+    Input Text       id=title      Test Inproceedings
     Input Text       id=year       2025
     Input Text       id=booktitle  Test BookTitle
     Click Button     Lisää viite
@@ -84,19 +84,109 @@ Check Book Reference In List
     Open And Configure Browser
     [Documentation]    Tarkistaa, että lisätty kirja löytyy listasta
     Go To      ${BASE_URL}/reference_list    
-    Wait Until Page Contains           Test Title
+    Wait Until Page Contains           Test Book
     Page Should Contain                Test Author
-    Page Should Contain                Test Title
+    Page Should Contain                Test Book
+
+Check Book search
+    Open And Configure Browser
+    [Documentation]    Tarkistaa, että lisätty kirja löytyy viite tyypillä
+    Go To      ${BASE_URL}/search     
+
+    Wait Until Page Contains Element  xpath=//input[@type='checkbox' and @value='kaikki']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='kaikki']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='artikkeli']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='konferenssi']
+
+    Select Checkbox      xpath=//input[@type='checkbox' and @value='kirja']
+    Click Button    Lähetä
+
+    Wait Until Page Contains           Test Book
+    Page Should Contain                Test Author
+    Page Should Contain                Test Book
+
+Check Article Reference search
+    Open And Configure Browser
+    [Documentation]    Tarkistaa, että lisätty artikkeli löytyy viite tyypillä
+    Go To      ${BASE_URL}/search    
+    Wait Until Page Contains Element  xpath=//input[@type='checkbox' and @value='kaikki']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='kaikki']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='kirja']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='konferenssi']
+
+    Select Checkbox      xpath=//input[@type='checkbox' and @value='artikkeli']
+    Click Button    Lähetä
+
+    Wait Until Page Contains           Test Article
+    Page Should Contain                Test Author
+    Page Should Contain                Test Article
+
+Check Conference Reference search
+    Open And Configure Browser
+    [Documentation]    Tarkistaa, että lisätty artikkeli löytyy viite tyypillä
+    Go To      ${BASE_URL}/search    
+    Wait Until Page Contains Element  xpath=//input[@type='checkbox' and @value='kaikki']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='kaikki']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='kirja']
+    Unselect Checkbox    xpath=//input[@type='checkbox' and @value='artikkeli']
+
+    Select Checkbox      xpath=//input[@type='checkbox' and @value='konferenssi']
+    Click Button    Lähetä
+
+    Wait Until Page Contains           Test Inproceedings
+    Page Should Contain                Test Author
+    Page Should Contain                Test Inproceedings
+
+
 
 Search Field Should Work
     Open And Configure Browser
     [Documentation]      Testaa Hakukentän, Sovelluksessa on hakutoiminto, jolla voi hakea viitteitä hakusanalla.
     Go To      ${BASE_URL}/search
     Wait Until Page Contains Element    name=query    timeout=5s
-    Input Text    name=query    Test Title
+    Input Text    name=query    Test Book
     Click Button     Lähetä
-    Wait Until Page Contains    Test Title    timeout=5s
+    Wait Until Page Contains    Test Book    timeout=5s
     Page Should Contain    Test Author
     Page Should Contain    2025
+    
+Check Download From Reference List
+    Open And Configure Browser
+    [Documentation]    Tarkistaa, että BIBTEXT:in voi ladata
+    Go To      ${BASE_URL}/reference_list  
+    Wait Until Page Contains Element    link=Lataa kaikki viitteet
+    Click Link    link=Lataa kaikki viitteet
+
+    Create Session    flask    ${BASE_URL}
+    ${bibtex}=    Get On Session    flask    /reference_list/download
+
+    Should Contain    ${bibtex.content}    Book
+    Should Contain    ${bibtex.content}    Article
+    Should Contain    ${bibtex.content}    Inproceedings
+
+Check Deletion From Reference search
+    Open And Configure Browser
+    [Documentation]    Tarkistaa, että artikkeleita voi poistaa
+    Go To      ${BASE_URL}/search  
+    Click Button    Lähetä
+    Wait Until Page Contains  Test Book
+    Wait Until Page Contains  Test Article
+    Wait Until Page Contains  Test Inproceedings
+
+    Click Element    xpath=//form[contains(@action, '/delete/TEST_BOOK_2/')]//button
+    Handle Alert    action=ACCEPT
+
+    Click Element    xpath=//form[contains(@action, '/delete/TEST_ARTICLE/')]//button
+    Handle Alert    action=ACCEPT
+
+    Click Element    xpath=//form[contains(@action, '/delete/TEST_INPROCEEDINGS/')]//button
+    Handle Alert    action=ACCEPT
+    
+    
+    Page Should Not Contain    Test Book
+    Page Should Not Contain    Test Article
+    Page Should Not Contain    Test Inproceedings
     Close Browser
+
+
     
