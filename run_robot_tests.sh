@@ -20,7 +20,7 @@ FLASK_PORT=5001
 TIMEOUT=30
 COUNT=0
 #On my machine this only works with ncat not nc. But in CI it only works on nc
-while ! ncat -z localhost $FLASK_PORT; do
+while ! nc -z localhost $FLASK_PORT; do
     sleep 1
     COUNT=$((COUNT+1))
     if [ $COUNT -ge $TIMEOUT ]; then
