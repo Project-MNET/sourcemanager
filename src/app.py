@@ -1,4 +1,5 @@
 from io import BytesIO
+from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, send_file
 from flask_wtf import CSRFProtect
@@ -26,6 +27,10 @@ csrf = CSRFProtect(app)
 
 with app.app_context():
     db.create_all()
+
+@app.context_processor
+def inject_year():
+    return {"current_year": datetime.now().year}
 
 def initialize_database():
     with app.app_context():

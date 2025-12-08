@@ -23,56 +23,60 @@
   </script>
 </head>
 <body>
-  <form action="/add_reference" method="post">
-    {{ form.hidden_tag() }}
+  <h1>Lisää uusi viite</h1>
+  
+  <div class="form-container">
+    <form action="/add_reference" method="post">
+      {{ form.hidden_tag() }}
 
-    <p>
-      Valitse viitteen tyyppi: <br><br>
-      {{ form.reference_type(id="reference_type", onchange="showFields()") }}
-    </p>
+      <p>
+        Valitse viitteen tyyppi: <br><br>
+        {{ form.reference_type(id="reference_type", onchange="showFields()") }}
+      </p>
 
-    <!-- Yhteiset kentät kaikille viitetyypeille -->
-    <div id="common_fields" class="field-group">
-      <div class="field-row"><label for="key">KEY:</label>{{ form.key() }}</div>
-      <div class="field-row"><label for="author">Author:</label>{{ form.author() }}</div>
-      <div class="field-row"><label for="title">Title:</label>{{ form.title() }}</div>
-      <div class="field-row"><label for="year">Year:</label>{{ form.year() }}</div>
-      <div class="field-row"><label for="doi">DOI:</label>{{ form.doi() }}</div>
-    </div>
+      <!-- Yhteiset kentät kaikille viitetyypeille -->
+      <div id="common_fields" class="field-group">
+        <div class="field-row"><label for="key">KEY:</label>{{ form.key() }}</div>
+        <div class="field-row"><label for="author">Author:</label>{{ form.author() }}</div>
+        <div class="field-row"><label for="title">Title:</label>{{ form.title() }}</div>
+        <div class="field-row"><label for="year">Year:</label>{{ form.year() }}</div>
+        <div class="field-row"><label for="doi">DOI:</label>{{ form.doi() }}</div>
+      </div>
 
-    <!-- Vain Book -->
-    <div id="book_fields" class="field-group" style="display:none;">
-      <div class="field-row"><label for="publisher">Publisher:</label>{{ form.publisher() }}</div>
-    </div>
+      <!-- Vain Book -->
+      <div id="book_fields" class="field-group" style="display:none;">
+        <div class="field-row"><label for="publisher">Publisher:</label>{{ form.publisher() }}</div>
+      </div>
 
-    <!-- Vain Article -->
-    <div id="article_fields" class="field-group" style="display:none;">
-      <div class="field-row"><label for="journal">Journal:</label>{{ form.journal() }}</div>
-      <div class="field-row"><label for="volume">Volume:</label>{{ form.volume() }}</div>
-      <div class="field-row"><label for="pages">Pages:</label>{{ form.pages() }}</div>
-    </div>
+      <!-- Vain Article -->
+      <div id="article_fields" class="field-group" style="display:none;">
+        <div class="field-row"><label for="journal">Journal:</label>{{ form.journal() }}</div>
+        <div class="field-row"><label for="volume">Volume:</label>{{ form.volume() }}</div>
+        <div class="field-row"><label for="pages">Pages:</label>{{ form.pages() }}</div>
+      </div>
 
-    <!-- Vain Inproceedings -->
-    <div id="inproceedings_fields" class="field-group" style="display:none;">
-      <div class="field-row"><label for="booktitle">Booktitle:</label>{{ form.booktitle() }}</div>
-    </div>
+      <!-- Vain Inproceedings -->
+      <div id="inproceedings_fields" class="field-group" style="display:none;">
+        <div class="field-row"><label for="booktitle">Booktitle:</label>{{ form.booktitle() }}</div>
+      </div>
 
-    <input class="button" type="submit" value="Lisää viite" />
-  </form>
-  <br>
-  {% if error_list and error_list|length > 0 %}
-    <div id="form-error-area" class="form-error-area" role="alert" aria-live="polite">
-      <strong>Lomakkeessa on virheitä:</strong>
-      <ul>
-        {% for err in error_list %}
-          <li>{{ err }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
+      <input class="button" type="submit" value="Lisää viite" />
+    </form>
+    
+    {% if error_list and error_list|length > 0 %}
+      <div id="form-error-area" class="form-error-area" role="alert" aria-live="polite">
+        <strong>Lomakkeessa on virheitä:</strong>
+        <ul>
+          {% for err in error_list %}
+            <li>{{ err }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
 
-  <br>
-  <a class="button" href="/">Takaisin etusivulle</a>
+    <br>
+    <a class="button" href="/">Takaisin etusivulle</a>
+  </div>
 
 </body>
 </html>

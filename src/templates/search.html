@@ -3,100 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Hae viitearkistosta</title>
-    <style>
-        .button {
-            display: block; 
-            padding: 10px; 
-            margin: 5px 0; 
-            border: 1px solid #000; 
-            text-align: center; 
-            text-decoration: none; 
-            color: #000; 
-            background-color: #f0f0f0; 
-            border-radius: 5px; 
-            width: 150px;
-        }
-
-        .button:hover {
-            background-color: #ddd; 
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h2>Hae viitearkistosta</h2>
-    <form action="/search" method="get">
-        <p>Valitse halutut viitetyypit:</p>
+    <h1>Hae viitearkistosta</h1>
+    <div class="content-container">
+        <form action="/search" method="get">
+            <p>Valitse halutut viitetyypit:</p>
 
-        <label><input type="checkbox" name="types" value="kirja"> Kirjaviitteet</label><br>
-        <label><input type="checkbox" name="types" value="artikkeli"> Artikkeliviitteet</label><br>
-        <label><input type="checkbox" name="types" value="konferenssi"> Konferenssiviitteet</label><br>
-        <label><input type="checkbox" name="types" value="kaikki"> Kaikki</label>
+            <label><input type="checkbox" name="types" value="kirja"> Kirjaviitteet</label><br>
+            <label><input type="checkbox" name="types" value="artikkeli"> Artikkeliviitteet</label><br>
+            <label><input type="checkbox" name="types" value="konferenssi"> Konferenssiviitteet</label><br>
+            <label><input type="checkbox" name="types" value="kaikki"> Kaikki</label>
 
-        <p>
-            Hakusana: <input type="text" name="query" maxlength="30">
-        </p>
-        <label><input type="radio" name="attribuutti" value="title" checked>
-            Otsikko
-        </label>
-        <label><input type="radio" name="attribuutti" value="author">
-            Tekijä
-        </label>
-        <label><input type="radio" name="attribuutti" value="key">
-            Avain
-        </label>
+            <p>
+                Hakusana: <input type="text" name="query" maxlength="30">
+            </p>
+            <label><input type="radio" name="attribuutti" value="title" checked>
+                Otsikko
+            </label>
+            <label><input type="radio" name="attribuutti" value="author">
+                Tekijä
+            </label>
+            <label><input type="radio" name="attribuutti" value="key">
+                Avain
+            </label>
 
-        <input class="button" type="submit" value="Lähetä">
-    </form>
+            <input class="button" type="submit" value="Lähetä">
+        </form>
 
-    <a class="button" href="/">Takaisin etusivulle</a>
+        <a class="button" href="/">Takaisin etusivulle</a>
 
-    {% if query %}
-        <h2>Haun tulos</h2>
-        {% if results %}
-            <ul>
-                {% if "kaikki" in types or "kirja" in types %}
-                    <strong>Kirjaviitteet</strong><br>
-                    {% for viite in kirja %}
-                    <li>
-                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}, DOI: {{viite.doi}}
-                        <form action="{{ url_for('delete_reference', key=viite.key, model='kirja')}}" method ="POST" style = "display:inline;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" onclick="return confirm('Haluatko varmasti poistaa tämän viitteen?')">Poista</button>
-                        </form>
-                        </form>
-                    </li>
-                    {% endfor %}
-                {% endif %}
+        {% if query %}
+            <h2>Haun tulos</h2>
+            {% if results %}
+                <ul>
+                    {% if "kaikki" in types or "kirja" in types %}
+                        <strong>Kirjaviitteet</strong><br>
+                        {% for viite in kirja %}
+                        <li>
+                            Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Publisher: {{viite.publisher}}, DOI: {{viite.doi}}
+                            <form action="{{ url_for('delete_reference', key=viite.key, model='kirja')}}" method ="POST" style = "display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" onclick="return confirm('Haluatko varmasti poistaa tämän viitteen?')">Poista</button>
+                            </form>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    {% endif %}
 
-                {% if "kaikki" in types or "artikkeli" in types %}
-                    <br><strong>Artikkeliviitteet</strong>
-                    {% for viite in artikkeli %}
-                    <li>
-                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Journal: {{viite.journal}}, Volume: {{viite.volume}}, Pages: {{viite.pages}}, DOI: {{viite.doi}}
-                        <form action="{{ url_for('delete_reference', key=viite.key, model='artikkeli')}}" method ="POST" style = "display:inline;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit">Poista</button>
-                        </form>
-                    </li>
-                    {% endfor %}
-                {% endif %}
+                    {% if "kaikki" in types or "artikkeli" in types %}
+                        <br><strong>Artikkeliviitteet</strong>
+                        {% for viite in artikkeli %}
+                        <li>
+                            Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Journal: {{viite.journal}}, Volume: {{viite.volume}}, Pages: {{viite.pages}}, DOI: {{viite.doi}}
+                            <form action="{{ url_for('delete_reference', key=viite.key, model='artikkeli')}}" method ="POST" style = "display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit">Poista</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    {% endif %}
 
-                {% if "kaikki" in types or "konferenssi" in types %}
-                    <br><strong>Konferenssiviitteet</strong>
-                    {% for viite in konferenssi %}
-                    <li>
-                        Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}, DOI: {{viite.doi}}
-                        <form action="{{ url_for('delete_reference', key=viite.key, model='konferenssi')}}" method ="POST" style = "display:inline;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit">Poista</button>
-                        </form>
-                    </li>
-                    {% endfor %}
-                {% endif %}
-            </ul>
-        {% else %}
-            <p>Ei viitteitä tällä haulla.</p>
+                    {% if "kaikki" in types or "konferenssi" in types %}
+                        <br><strong>Konferenssiviitteet</strong>
+                        {% for viite in konferenssi %}
+                        <li>
+                            Key:{{viite.key}} Author:{{viite.author}}: {{viite.title}}, {{viite.year}}, Booktitle: {{viite.booktitle}}, DOI: {{viite.doi}}
+                            <form action="{{ url_for('delete_reference', key=viite.key, model='konferenssi')}}" method ="POST" style = "display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit">Poista</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            {% else %}
+                <p>Ei viitteitä tällä haulla.</p>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
+    
+    <footer>
+        (c) MNET {{ current_year }}
+    </footer>
 </body>
 </html>

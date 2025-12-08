@@ -8,11 +8,12 @@
 
 <body>
     <h1>Kaikki viitteet</h1>
-      <div class="button-container">
+    <div class="button-container">
       <a class="button" href="/">Takaisin etusivulle</a>
       <a class="button" href="/reference_list/download">Lataa kaikki viitteet</a>
     </div>
-    <br>
+    
+    <ul class="references-list">
         {% for ref in references %}
         <li>
             {{ref.author}}: {{ref.title}}, {{ref.year}}, DOI {{ref.doi}}
@@ -54,5 +55,6 @@
 
         </li>
         {% endfor %}
+    </ul>
 </body>
 </html>
