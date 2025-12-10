@@ -120,6 +120,15 @@ def reference_list():
                 for item in sublist]
     return render_template("reference_list.html", references=ref_list)
 
+@app.route('/reference/<string:key>')
+def reference_page(key):
+    references_dict = database.get(key=key)
+    reference=None
+    for list in references_dict.values():
+        if list:
+            reference=list[0]
+            break
+    return render_template("reference_page.html", reference=reference)
 
 @app.route("/delete/<string:key>/<string:model>", methods=["POST"])
 def delete_reference(key, model):
