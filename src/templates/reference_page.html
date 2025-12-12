@@ -12,7 +12,8 @@
 Tekijä: {{ reference.author }}
 Otsikko: {{ reference.title }}
 {% if reference.year %}Vuosi: {{ reference.year }}{% endif %}
-{% if reference.doi %}DOI: {{ reference.doi }}{% endif %}
+{% if reference.doi %}DOI: {{ reference.doi }}
+{% endif %}
 {%- if reference.__class__.__tablename__ == "Kirja_viite" -%}
 {%- if reference.publisher -%}Kustantaja: {{ reference.publisher }}{% endif %}
 {%- endif -%}
@@ -28,21 +29,21 @@ Otsikko: {{ reference.title }}
 
 <pre>
 <h2>BibTeX</h2>
-@{% if reference.__class__.__tablename__ == "Artikkeli_viite" -%}article{% endif -%}{% if reference.__class__.__tablename__ == "Kirja_viite" -%}book{% endif -%}{% if reference.__class__.__tablename__ == "Konferenssijulkaisu_viite" -%}inproceedings{% endif -%}{{ '{' }}{{ reference.key }},
+    @{% if reference.__class__.__tablename__ == "Artikkeli_viite" -%}article{% endif -%}{% if reference.__class__.__tablename__ == "Kirja_viite" -%}book{% endif -%}{% if reference.__class__.__tablename__ == "Konferenssijulkaisu_viite" -%}inproceedings{% endif -%}{{ '{' }}{{ reference.key }},
 author = {{ '{' }}{{ reference.author }}{{ '}' }},
-title  = {{ '{' }}{{ reference.title }}{{ '}' }},
-{% if reference.year %}year   = {{ '{' }}{{ reference.year }}{{ '}' }},{% endif %}
-{% if reference.doi %}doi = {{ '{' }}{{ reference.doi }}{{ '}' }},{% endif %}
+title = {{ '{' }}{{ reference.title }}{{ '}' }},<br>
+{%- if reference.year %}year = {{ '{' }}{{ reference.year }}{{ '}' }},<br>{%- endif %}
+{%- if reference.doi %}doi = {{ '{' }}{{ reference.doi }}{{ '}' }},<br>{%- endif %}
 {%- if reference.__class__.__tablename__ == "Kirja_viite" %}
-{% if reference.publisher %}publisher = {{ '{' }}{{ reference.publisher }}{{ '}' }}{% endif %}
+{%- if reference.publisher %}publisher = {{ '{' }}{{ reference.publisher }}{{ '}' }}{%- endif %}
 {% endif -%}
 {%- if reference.__class__.__tablename__ == "Artikkeli_viite" %}
-{% if reference.journal %}journal = {{ '{' }}{{ reference.journal }}{{ '}' }},{% endif %}
-{% if reference.volume %}volume = {{ '{' }}{{ reference.volume }}{{ '}' }},{% endif %}
-{% if reference.pages %}pages = {{ '{' }}{{ reference.pages }}{{ '}' }}{% endif %}
+{%- if reference.journal %}journal = {{ '{' }}{{ reference.journal }}{{ '}' }}{% if reference.volume or reference.pages %},<br>{% endif %}{%- endif %}
+{%- if reference.volume %}volume = {{ '{' }}{{ reference.volume }}{{ '}' }}{% if reference.pages %},<br>{% endif %}{%- endif %}
+{%- if reference.pages %}pages = {{ '{' }}{{ reference.pages }}{{ '}' }}{%- endif %}
 {% endif -%}
 {%- if reference.__class__.__tablename__ == "Konferenssijulkaisu_viite" %}
-{% if reference.booktitle -%}booktitle = {{ '{' }}{{ reference.booktitle }}{{ '}' }}{% endif %}
+{%- if reference.booktitle %}booktitle = {{ '{' }}{{ reference.booktitle }}{{ '}' }}{%- endif %}
 {% endif -%}
 }
 </pre>
