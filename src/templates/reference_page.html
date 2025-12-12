@@ -2,33 +2,46 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <title>Viite {{ reference.key }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <style>
+    .reference-information,
+    .BibTeX {
+    width: fit-content;  /* shrink to content size */
+    margin: 0 auto;      /* center horizontally */
+    }
+  </style>
 </head>
 
 <body>
-<h1>Viite {{ reference.key }}</h1>
+  <div class="container">
+    <h1>Viite {{ reference.key }}</h1>
 
-<pre>
-Tekijä: {{ reference.author }}
-Otsikko: {{ reference.title }}
-{% if reference.year %}Vuosi: {{ reference.year }}{% endif %}
-{% if reference.doi %}DOI: {{ reference.doi }}
-{% endif %}
-{%- if reference.__class__.__tablename__ == "Kirja_viite" -%}
-{%- if reference.publisher -%}Kustantaja: {{ reference.publisher }}{% endif %}
-{%- endif -%}
-{%- if reference.__class__.__tablename__ == "Artikkeli_viite" -%}
-{% if reference.journal %}Julkaisu: {{ reference.journal }}{% endif %}
-{% if reference.volume %}Vuosikerta: {{ reference.volume }}{% endif %}
-{% if reference.pages %}Sivut: {{ reference.pages }}{% endif %}
-{%- endif -%}
-{%- if reference.__class__.__tablename__ == "Konferenssijulkaisu_viite" -%}
-{% if reference.booktitle %}Konferenssijulkaisun nimi: {{ reference.booktitle }}{% endif %}
-{%- endif -%}
-</pre>
+    <div class="reference-information">
+      <p>
+      Tekijä: {{ reference.author }}<br>
+      Otsikko: {{ reference.title }}<br>
+      {% if reference.year %}Vuosi: {{ reference.year }}<br>{% endif %}
+      {% if reference.doi %}DOI: {{ reference.doi }}<br>{% endif %}
+      {%- if reference.__class__.__tablename__ == "Kirja_viite" -%}
+      {%- if reference.publisher -%}Kustantaja: {{ reference.publisher }}{% endif %}
+      {%- endif -%}
+      {%- if reference.__class__.__tablename__ == "Artikkeli_viite" -%}
+      {% if reference.journal %}Julkaisu: {{ reference.journal }}<br>{% endif %}
+      {% if reference.volume %}Vuosikerta: {{ reference.volume }}<br>{% endif %}
+      {% if reference.pages %}Sivut: {{ reference.pages }}{% endif %}
+      {%- endif -%}
+      {%- if reference.__class__.__tablename__ == "Konferenssijulkaisu_viite" -%}
+      {% if reference.booktitle %}Konferenssijulkaisun nimi: {{ reference.booktitle }}{% endif %}
+      {%- endif -%}
+      </p>
+    </div>
 
-<pre>
-<h2>BibTeX</h2>
+    <div class="BibTeX">
+      <pre>
+      <h2>BibTeX</h2>
     @{% if reference.__class__.__tablename__ == "Artikkeli_viite" -%}article{% endif -%}{% if reference.__class__.__tablename__ == "Kirja_viite" -%}book{% endif -%}{% if reference.__class__.__tablename__ == "Konferenssijulkaisu_viite" -%}inproceedings{% endif -%}{{ '{' }}{{ reference.key }},
 author = {{ '{' }}{{ reference.author }}{{ '}' }},
 title = {{ '{' }}{{ reference.title }}{{ '}' }},<br>
@@ -46,8 +59,12 @@ title = {{ '{' }}{{ reference.title }}{{ '}' }},<br>
 {%- if reference.booktitle %}booktitle = {{ '{' }}{{ reference.booktitle }}{{ '}' }}{%- endif %}
 {% endif -%}
 }
-</pre>
-<a href="/reference_list">Takaisin viitelistaan</a>
+      </pre>
+    </div>
+    <div class="button-container">
+      <a class="button" href="/reference_list">Takaisin viitelistaan</a>
+    </div>
+  </div>
 
 </body>
 </html>
