@@ -8,6 +8,7 @@ A program to chart, manage, and view sources/references.
 This project is licensed under the terms of the GNU GPLv3 license.
 
 ## [Link to backlog](https://docs.google.com/spreadsheets/d/1BsAK4wQ-Yx5VGymUslDFWsJHH8hVnQ3YN_gs9V_qJI8/edit?usp=sharing)
+## [Link to final report](https://docs.google.com/document/d/1f6Qhqv8ydQXSXDtT9cq4Ms3t4bprWCDJzgdMJwo47ts/edit?usp=sharing)
 
 ## Definition of Done (DoD):
 - Testit läpäisty
